@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {BuscarColModalPage} from '../buscar-col-modal/buscar-col-modal.page'
 
 @Component({
   selector: 'app-tab2',
@@ -6,7 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  // customPickerOptions:any;
+  nombre:String;
+  descripcion:String;
+  numeroEntradas:Number;
+  precioEntradas:Number;
+  Fecha:Date
+  constructor(private modalCtrl:ModalController) { 
+  }
 
-  constructor() {}
+  async presentModal(){
+    const modal = await this.modalCtrl.create({
+      component:BuscarColModalPage,
+      cssClass:'',
+    });
+    return await modal.present();
+  }
 
 }

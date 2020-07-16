@@ -1,0 +1,48 @@
+ion-card{
+    width:75%;
+    height: 160px;
+    margin:0;
+    transform: scale(0.9);
+    transition: 0.25s;
+}
+.swiper-slide-active ion-card{
+    transform: scale(1);
+}
+ion-card-title{
+    font-family: Comforta-Bold;
+    letter-spacing: -1px;
+    color:white;
+}
+ion-label{
+    font-size: 11px;
+    font-family: Comforta-Bold;
+}
+ion-segment{
+    border-radius: 10px;
+}
+ion-segment-button{
+    --indicator-color:#33CCCC;
+    --color-checked:white;
+    --color:#4D3BAC;
+    --padding-top:5px;
+    --padding-bottom:5px;
+}
+ion-item{
+    --background:#3C297E;
+}
+.proximosEventos{
+    --background:#3C297E;
+    width: 100%;
+    height: auto;
+    line-height: 15px;
+}
+.proximosEventos ion-card-title{
+    font-size: 12px;
+    font-family: Comforta-Light;
+    letter-spacing: 0.5px;
+}
+.proximosEventos ion-card-subtitle{
+    font-size: 10px;
+    color:#614DCA;
+    font-family: Comforta-Light;
+}

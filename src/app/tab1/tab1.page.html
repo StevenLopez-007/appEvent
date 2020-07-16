@@ -1,17 +1,158 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar style="--background:#3B2E80">
     <ion-title>
       Tab 1
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content [fullscreen]="true" style="--background:#180B4F;">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
+  <ion-grid fixed style="padding: 0;" class="fadeIn animated">
+    <ion-row>
+      <ion-col size="12">
+        <h1 class="titulo">Mis Eventos</h1>
+      </ion-col>
+      <ion-col size="12" style="padding: 0;">
+        <ion-slides [options]="slideOptions">
+          <ion-slide>
+            <ion-card style="--background:#FFA868;" class="ion-padding">
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Gran cena ranchera, disfrutala.</ion-card-subtitle>
+
+            </ion-card>
+          </ion-slide>
+          <ion-slide>
+            <ion-card style="--background:#FFA868;" class="ion-padding">
+
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Gran cena ranchera, disfrutala.</ion-card-subtitle>
+
+            </ion-card>
+          </ion-slide>
+          <ion-slide>
+            <ion-card style="--background:#FFA868;" class="ion-padding">
+
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Gran cena ranchera, disfrutala.</ion-card-subtitle>
+
+            </ion-card>
+          </ion-slide>
+          <ion-slide>
+            <ion-card style="--background:#FFA868;" class="ion-padding">
+
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Gran cena ranchera, disfrutala.</ion-card-subtitle>
+
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center ion-padding">
+      <ion-col size="12">
+        <ion-segment value="pizza" style="--background:#2A1972;">
+          <ion-segment-button value="pizza">
+            <ion-label>Proximos Eventos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="pasta">
+            <ion-label>Tus Colaboradores</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-padding-end ion-padding-start">
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12">
+        <ion-card class="proximosEventos">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">Cena Ranchera</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">Dec 11, 2017</ion-card-subtitle>
+            </div>
+            <ion-note style="--color:white;" slot="end">42</ion-note>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
