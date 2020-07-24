@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header> -->
 
-<ion-content [fullscreen]="true" style="--background:#180B4F;">
+<ion-content [fullscreen]="true">
   <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 2</ion-title>
@@ -22,7 +22,7 @@
       <ion-col size="12">
         <ion-item lines="none">
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="nombre" required [maxlength]="20" clearInput style="--color:white;"></ion-input>
+          <ion-input [(ngModel)]="nombre" required [maxlength]="20" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
@@ -36,13 +36,13 @@
           <ion-label style="display: flex;align-items: center;" position="floating">
             <ion-icon style="margin-right: 5px;" slot="start" name="cash-outline"></ion-icon>Precio Entrada
           </ion-label>
-          <ion-input required inputmode="decimal" clearInput style="--color:white;"></ion-input>
+          <ion-input required inputmode="decimal" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
           <ion-label position="floating">Numero Entradas</ion-label>
-          <ion-input required inputmode="numeric" clearInput style="--color:white;"></ion-input>
+          <ion-input required inputmode="numeric" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">

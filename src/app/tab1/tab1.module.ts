@@ -6,6 +6,9 @@ import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
+import { ColorEventPipe } from '../pipes/color-event.pipe';
+import { OrderEventsPerDatePipe } from '../pipes/order-events-per-date.pipe';
+
 
 @NgModule({
   imports: [
@@ -15,6 +18,6 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule
   ],
-  declarations: [Tab1Page]
+  declarations: [Tab1Page,ColorEventPipe,OrderEventsPerDatePipe]
 })
 export class Tab1PageModule {}

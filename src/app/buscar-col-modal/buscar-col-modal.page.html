@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>BuscarColModal</ion-title>
+  <ion-toolbar style="--background:#180B4F;">
+    <ion-title class="titulo">Buscar Usuario</ion-title>
+  </ion-toolbar>
+  <ion-toolbar style="--background:#180B4F;">
+    <ion-searchbar class="searchBar" cancelButtonText="Cerrar" placeholder="Buscar Colaborador" inputmode="search" type="decimal" (ionCancel)="closeModal()" [debounce]="250" showCancelButton="always"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<ion-button (click)="closeModal()" expand="block" fill="clear" shape="round">
-  CloseModal
-</ion-button>
+<ion-content style="--background:#180B4F;">
+
 </ion-content>

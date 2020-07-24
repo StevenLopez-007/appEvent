@@ -18,4 +18,6 @@ export class BuscarColModalPage implements OnInit {
     });
   }
 
+  
+
 }
