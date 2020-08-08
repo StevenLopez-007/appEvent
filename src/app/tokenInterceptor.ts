@@ -2,7 +2,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Injectable } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { catchError, switchMap, filter, take } from 'rxjs/operators';
+import { catchError, switchMap, filter, take} from 'rxjs/operators';
 
 @Injectable()
 export class TokenInterceptor  implements HttpInterceptor{
@@ -10,6 +10,15 @@ export class TokenInterceptor  implements HttpInterceptor{
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     constructor(public authService:AuthService) {}
     intercept(req:HttpRequest<any>,next:HttpHandler):Observable<HttpEvent<any>>{
+    // this.authService.getJwt().then((token)=>{
+    //         if(token){
+    //             req= this.addToken(req,token);
+            
+    //         }
+    //     })
+        // this.getToken().pipe(flatMap(token=>{
+        //     console.log(token)
+        // }))
         if(this.authService.getJwt()){
             req= this.addToken(req,this.authService.getJwt());
         }

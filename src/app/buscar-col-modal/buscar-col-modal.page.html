@@ -1,12 +1,64 @@
-<ion-header>
-  <ion-toolbar style="--background:#180B4F;">
-    <ion-title class="titulo">Buscar Usuario</ion-title>
-  </ion-toolbar>
-  <ion-toolbar style="--background:#180B4F;">
-    <ion-searchbar class="searchBar" cancelButtonText="Cerrar" placeholder="Buscar Colaborador" inputmode="search" type="decimal" (ionCancel)="closeModal()" [debounce]="250" showCancelButton="always"></ion-searchbar>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content style="--background:#180B4F;">
-
+<ion-content style="--background:#180B4F;" [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar style="--background:#180B4F;">
+      <ion-title class="titulo">Colaboradores</ion-title>
+    </ion-toolbar>
+    <ion-toolbar style="--background:#180B4F;">
+      <ion-searchbar inputmode="email" [(ngModel)]="mailCol" class="searchBar" cancelButtonText="Cerrar"
+        placeholder="Buscar Colaborador (E-mail)" inputmode="search" type="text" (ionCancel)="closeModal(0)"
+        [debounce]="250" showCancelButton="always"></ion-searchbar>
+      <div style="display: flex; justify-content: space-around;">
+        <ion-button id="buttomBuscar" (click)="findUserByCorreo()" expand="block" shape="round">
+          Buscar
+        </ion-button>
+        <ion-button id="buttomBuscar" (click)="closeModal(1)" expand="block" shape="round">
+          Agregar Cols.
+        </ion-button>
+      </div>
+      <!-- <ion-label>Busca un usuario e invitalo a colaborar a tu evento</ion-label> -->
+    </ion-toolbar>
+  </ion-header>
+  <ion-grid fixed>
+    <ion-row *ngIf="colaborador?.length>0" class="ion-margin-bottom ion-margin-top">
+      <ion-label class="titulo">Puedes agregar este usuario como colaborador</ion-label>
+      <ion-col size="12" *ngFor="let col of colaborador;let i = index" [attr.data-index]="i">
+        <ion-card class="proximosEventos" style="margin:0;" (click)="addCol(col)">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">{{col.correo}}</ion-card-subtitle>
+            </div>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="colaboradores?.length>0 ||colaborador?.length>0;else emptyCols">
+      <ion-label class="titulo">Cols. por agregar al evento</ion-label>
+      <ion-col size="12" *ngFor="let col of colaboradores;let i = index" [attr.data-index]="i">
+        <ion-card class="proximosEventos" style="margin:0;">
+          <ion-item lines="none">
+            <ion-avatar class="ion-margin">
+              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+            </ion-avatar>
+            <div>
+              <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
+              <ion-card-subtitle class="ion-text-left">{{col.correo}}</ion-card-subtitle>
+            </div>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #emptyCols>
+    <img  src="../../assets/empty2.svg" height="50%" width="50%" 
+    style="position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 0;
+    top: 0;">
+  </ng-template>
 </ion-content>

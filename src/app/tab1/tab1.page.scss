@@ -1,3 +1,5 @@
+$colorPrimary:#4D3BAC;
+
 ion-card{
     width:75%;
     height: 160px;
@@ -6,6 +8,14 @@ ion-card{
     transition: 0.25s;
 }
 .swiper-slide-active ion-card{
+    transform: scale(1);
+}
+#skeletonEvents{
+    transform: scale(0.9);
+    background-color: $colorPrimary;
+    border-radius: 5px;
+}
+.swiper-slide-active #skeletonEvents{
     transform: scale(1);
 }
 ion-card-title{

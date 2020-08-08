@@ -8,6 +8,7 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
+ 
  @font-face{
      font-family: "Comforta-Bold";
      src: url('./fonts/Comfortaa-Bold.ttf');
@@ -57,6 +58,13 @@
   .fadeIn {
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
+  }
+
+  .loadingClass {
+    --background: #4D3BAC;
+    --spinner-color: #fff;
+    font-family: Comforta-Bold;
+    color: #fff;
   }
 
 /* Core CSS required for Ionic components to work properly */

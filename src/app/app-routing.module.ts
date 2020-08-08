@@ -22,6 +22,14 @@ const routes: Routes = [
   {
     path:'**',redirectTo:''
   },
+  {
+    path: 'ver-colaboradores',
+    loadChildren: () => import('./ver-colaboradores/ver-colaboradores.module').then( m => m.VerColaboradoresPageModule)
+  },
+  {
+    path: 'error-emails',
+    loadChildren: () => import('./error-emails/error-emails.module').then( m => m.ErrorEmailsPageModule)
+  },
 ];
 @NgModule({
   imports: [

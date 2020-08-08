@@ -1,0 +1,14 @@
+ion-item{
+    --background: var(--colorPrimario);
+}
+ion-list{
+    background-color:var(--colorPrimario)
+}
+ion-label{
+    color:white;
+    font-family: comforta-Bold;
+}
+ion-item ion-label{
+    --color:white;
+    font-family: comforta-Bold;
+}

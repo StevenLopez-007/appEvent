@@ -7,6 +7,10 @@
 </ion-header> -->
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando...">
+    </ion-refresher-content>
+  </ion-refresher>
   <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
@@ -18,49 +22,78 @@
         <h1 class="titulo">Mis Eventos</h1>
       </ion-col>
       <ion-col size="12" style="padding: 0;">
-        <ion-slides [options]="slideOptions">
+        <ion-slides [options]="slideOptions" *ngIf="events?.length>0;else loading">
           <ion-slide *ngFor="let event of events;let i =index" [attr.data-index]="i">
             <ion-card [style]="{'--background':''|colorEvent}" class="ion-padding">
-                <ion-card-title class="ion-text-left">{{event.nombre}}</ion-card-title>
-                <ion-card-subtitle class="ion-text-left ion-padding-top">{{event.descripcion}}</ion-card-subtitle>
+              <ion-card-title class="ion-text-left">{{event.nombre}}</ion-card-title>
+              <ion-card-subtitle class="ion-text-left ion-padding-top">{{event.descripcion}}</ion-card-subtitle>
               <ion-card-content>
                 <ion-label style="color:white;">{{event.fechaEvento |date:'MMM d, yyy'}}</ion-label>
               </ion-card-content>
             </ion-card>
           </ion-slide>
         </ion-slides>
+        <!-- --------template loading -->
+        <ng-template #loading>
+          <ion-slides [options]="slideOptions">
+            <ion-slide *ngFor="let item of [0,1,2]">
+              <ion-skeleton-text id="skeletonEvents" animated style="width: 75%;height: 160px;"></ion-skeleton-text>
+            </ion-slide>
+          </ion-slides>
+        </ng-template>
       </ion-col>
     </ion-row>
     <ion-row class="ion-justify-content-center ion-padding">
       <ion-col size="12">
-        <ion-segment value="pizza" style="--background:#2A1972;">
-          <ion-segment-button value="pizza">
+        <ion-segment (ionChange)="segmentChange($event)" value="events" style="--background:#2A1972;">
+          <ion-segment-button value="events">
             <ion-label>Proximos Eventos</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="pasta">
+          <ion-segment-button value="colabor">
             <ion-label>Tus Colaboradores</ion-label>
           </ion-segment-button>
         </ion-segment>
       </ion-col>
     </ion-row>
 
-    <ion-row class="ion-justify-content-center ion-padding-end ion-padding-start">
+    <ion-row class="ion-justify-content-center ion-padding-end ion-padding-start"
+      *ngIf="events?.length>0;else loadingProxEvents">
       <ion-col size="12" *ngFor="let event of (events | orderEventsPerDate)">
         <ion-card class="proximosEventos">
-          <ion-item lines="none">
-            <ion-avatar class="ion-margin">
-              <div class="avatarEvent" [style]="{'background-color': ''|colorEvent}">{{event.nombre[0]}}</div>
-            </ion-avatar>
-            <div>
-              <ion-card-title class="ion-text-left">{{event.nombre}}</ion-card-title>
-              <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'MMM d, yyy'}}</ion-card-subtitle>
-              <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'HH:mm, yyy'}}</ion-card-subtitle>
-            </div>
-            <ion-note class="ion-align-self-center" style="--color:white; font-family: Comforta-Light;" slot="end">{{event.numeroEntradas}}</ion-note>
-          </ion-item>
+
+          <ion-item-sliding>
+            <ion-item lines="none">
+              <ion-avatar class="ion-margin">
+                <div class="avatarEvent" [style]="{'background-color': ''|colorEvent}">{{event.nombre[0]}}</div>
+              </ion-avatar>
+              <div>
+                <ion-card-title class="ion-text-left">{{event.nombre}}</ion-card-title>
+                <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'MMM d, yyy'}}</ion-card-subtitle>
+                <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'HH:mm'}}</ion-card-subtitle>
+              </div>
+              <ion-note class="ion-align-self-center" style="--color:white; font-family: Comforta-Light;" slot="end">
+                Entradas: {{event.numeroEntradas}}</ion-note>
+            </ion-item>
+            <ion-item-options side="start" style="border:none;">
+              <ion-item-option style="--background:#33CCCC;color:white;font-family: Comforta-Light;" (click)="favorite(item)">Vender</ion-item-option>
+            </ion-item-options>
+            <ion-item-options side="end" style="border:none;">
+              <ion-item-option style="--background:#33CCCC;color:white;font-family: Comforta-Light;" (click)="verColaboradores(event.colaboradores,event.nombre,event)">Colaboradores</ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
         </ion-card>
       </ion-col>
     </ion-row>
+
+    <ng-template #loadingProxEvents>
+      <ion-row>
+        <ion-col *ngFor="let item of [0,0,0]" class="ion-justify-content-center ion-padding-end ion-padding-start"
+          size="12">
+          <ion-skeleton-text animated style="width: 100%;height: 64px; background-color:#4D3BAC; border-radius: 5px;">
+          </ion-skeleton-text>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-grid>
 
 </ion-content>

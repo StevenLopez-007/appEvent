@@ -14,132 +14,101 @@
   </ion-header> -->
 
   <ion-grid fixed class="ion-padding" class="formDatosEvent fadeIn animated">
-    <ion-row>
-      <ion-col size="12">
-        <h1 class="titulo">Nuevo Evento <ion-icon slot="start" name="add-outline"></ion-icon>
-        </h1>
+      <h1 class="titulo ion-margin-bottom">Nuevo Evento <ion-icon slot="start" name="add-outline"></ion-icon>
+      </h1>
+    <ion-label class="titulo ion-text-center">Colaboradores (cinco máximo)<ion-icon slot="start" name="people-outline"></ion-icon>
+    </ion-label>
+    <ion-button class="ion-margin" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" (click)="presentModal()" expand="block" fill="solid" shape="round">
+      Agregar
+    </ion-button>
+    <ion-row class="ion-justify-content-center ion-margin-bottom ion-margin-top">
+      <ion-col size="12" *ngFor="let col of colaboradores">
+        <ion-card class="proximosEventos" style="margin:0;" >
+          <ion-item-sliding>
+            <ion-item lines="none">
+              <ion-avatar class="ion-margin">
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              </ion-avatar>
+              <div>
+                <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
+                <ion-card-subtitle class="ion-text-left">{{col.correo}}</ion-card-subtitle>
+              </div>
+            </ion-item>
+              <ion-item-options side="end">
+                <ion-item-option lines="none" (click)="favorite(item)" style="--background:#33CCCC;">Eliminar</ion-item-option>
+              </ion-item-options>
+          </ion-item-sliding>
+        </ion-card>
       </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-label class="titulo">Datos del evento (obligatorios)</ion-label>
+      <form [formGroup]="eventForm" (ngSubmit)="saveEvent()" novalidate style="width: 100%;">
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input [(ngModel)]="nombre" required [maxlength]="20" clear-input style="--color:white;"></ion-input>
+          <ion-label position="floating">Nombre
+            {{enviado && errrosForm.nombre.errors?.required?'| Requerido':
+              enviado && errrosForm.nombre.errors?.minlength?'| Minimo 1 caracter de largo':
+              enviado && errrosForm.nombre.errors?.maxlength?'| Máximo 64 caracter de largo':''
+            }}
+          </ion-label>
+          <ion-input formControlName="nombre"  required [maxlength]="64" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Descripcion</ion-label>
-          <ion-textarea clearOnEdit required [maxlength]="80" style="--color:white;"></ion-textarea>
+          <ion-label position="floating">Descripción 
+            {{enviado && errrosForm.descripcion.errors?.required?'| Requerido':
+              enviado && errrosForm.descripcion.errors?.minlength?'| Minimo 1 caracter':
+              enviado && errrosForm.descripcion.errors?.maxlength?'| Máximo 128 caracteres':''
+            }}
+          </ion-label>
+          <ion-textarea formControlName="descripcion" clearOnEdit required [maxlength]="164" style="--color:white;"></ion-textarea>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
           <ion-label style="display: flex;align-items: center;" position="floating">
-            <ion-icon style="margin-right: 5px;" slot="start" name="cash-outline"></ion-icon>Precio Entrada
+            <ion-icon style="margin-right: 5px;" slot="start" name="cash-outline"></ion-icon>Precio Entrada 
+            {{enviado && errrosForm.precioEntrada.errors?.required?'| Requerido':
+              enviado && errrosForm.precioEntrada.errors?.min?'| Minimo (0.01)':''
+            }}
           </ion-label>
-          <ion-input required inputmode="decimal" clear-input style="--color:white;"></ion-input>
+          <ion-input formControlName="precioEntrada" inputmode="decimal" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Numero Entradas</ion-label>
-          <ion-input required inputmode="numeric" clear-input style="--color:white;"></ion-input>
+          <ion-label position="floating">Numero Entradas 
+            {{enviado && errrosForm.numeroEntradas.errors?.required?'| Requerido':
+              enviado && errrosForm.numeroEntradas.errors?.min?'| Minimo(1)':
+              enviado && errrosForm.numeroEntradas.errors?.pattern?'| Numero invalido':''
+            }}
+          </ion-label>
+          <ion-input type="text" formControlName="numeroEntradas" inputmode="numeric" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label>Seleccione la fecha</ion-label>
-          <ion-datetime cancel-text="Cancelar" doneText="Aceptar" required
+          <ion-label>Fecha/hora {{enviado && errrosForm.fecha.errors?.required?'| Requerido':''}}</ion-label>
+          <ion-datetime formControlName="fecha" cancel-text="Cancelar" doneText="Aceptar" required
             style="--placeholder-color:white;color:white;" [pickerOptions]="customPickerOptions"
-            displayFormat="DD MM YYYY" min="1981" [max]="2002"></ion-datetime>
+            displayFormat="DD/MM/YYYY HH:mm" [min]="actualYear" [max]="2030"></ion-datetime>
         </ion-item>
       </ion-col>
       <ion-col size="12">
+        <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
+          Guardar evento
+        </ion-button>
+      </ion-col>
+      <!-- <ion-col size="12">
         <ion-item lines="none">
-          <ion-label>Seleccione la hora</ion-label>
-          <ion-datetime cancel-text="Cancelar" doneText="Aceptar" required style="--placeholder-color:white;color:white;" [pickerOptions]="customPickerOptions"
-            displayFormat="HH mm"></ion-datetime>
+          <ion-label>Seleccione la hora </ion-label>
+          <ion-datetime (ionChange)="time($event)" cancel-text="Cancelar" doneText="Aceptar" required style="--placeholder-color:white;color:white;" [pickerOptions]="customPickerOptions"
+            displayFormat="HH:mm " display-timezone="utc"></ion-datetime>
         </ion-item>
-      </ion-col>
-    </ion-row>
-
-    <h3 class="titulo ion-text-center">Colaboradores <ion-icon slot="start" name="people-outline"></ion-icon>
-    </h3>
-    <ion-button style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" (click)="presentModal()" expand="block" fill="solid" shape="round">
-      Agregar
-    </ion-button>
-    <ion-row class="ion-justify-content-center ion-padding-end ion-padding-start">
-      <ion-col size="12">
-        <ion-card class="proximosEventos" style="margin:0;">
-          <ion-item-sliding>
-            <ion-item lines="none">
-              <ion-avatar class="ion-margin">
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-              </ion-avatar>
-              <div>
-                <ion-card-title class="ion-text-left">Edgar Lopez</ion-card-title>
-                <ion-card-subtitle class="ion-text-left">edgar@gmail.com</ion-card-subtitle>
-              </div>
-            </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option lines="none" (click)="favorite(item)" style="--background:#33CCCC;">Eliminar</ion-item-option>
-              </ion-item-options>
-          </ion-item-sliding>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12">
-        <ion-card class="proximosEventos" style="margin:0;">
-          <ion-item-sliding>
-            <ion-item lines="none">
-              <ion-avatar class="ion-margin">
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-              </ion-avatar>
-              <div>
-                <ion-card-title class="ion-text-left">Edgar Lopez</ion-card-title>
-                <ion-card-subtitle class="ion-text-left">edgar@gmail.com</ion-card-subtitle>
-              </div>
-            </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option lines="none" (click)="favorite(item)" style="--background:#33CCCC;">Eliminar</ion-item-option>
-              </ion-item-options>
-          </ion-item-sliding>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12">
-        <ion-card class="proximosEventos" style="margin:0;">
-          <ion-item-sliding>
-            <ion-item lines="none">
-              <ion-avatar class="ion-margin">
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-              </ion-avatar>
-              <div>
-                <ion-card-title class="ion-text-left">Edgar Lopez</ion-card-title>
-                <ion-card-subtitle class="ion-text-left">edgar@gmail.com</ion-card-subtitle>
-              </div>
-            </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option lines="none" (click)="favorite(item)" style="--background:#33CCCC;">Eliminar</ion-item-option>
-              </ion-item-options>
-          </ion-item-sliding>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12">
-        <ion-card class="proximosEventos" style="margin:0;">
-          <ion-item-sliding>
-            <ion-item lines="none">
-              <ion-avatar class="ion-margin">
-                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-              </ion-avatar>
-              <div>
-                <ion-card-title class="ion-text-left">Edgar Lopez</ion-card-title>
-                <ion-card-subtitle class="ion-text-left">edgar@gmail.com</ion-card-subtitle>
-              </div>
-            </ion-item>
-              <ion-item-options side="end">
-                <ion-item-option lines="none" (click)="favorite(item)" style="--background:#33CCCC;">Eliminar</ion-item-option>
-              </ion-item-options>
-          </ion-item-sliding>
-        </ion-card>
-      </ion-col>
+      </ion-col> -->
+    </form>
     </ion-row>
   </ion-grid>
 
