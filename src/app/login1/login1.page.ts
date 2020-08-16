@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-login1',
@@ -10,7 +12,7 @@ import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 export class Login1Page implements OnInit {
   ionicForm:FormGroup;
   isSubmitted =false;
-  constructor(private authService:AuthService,public formBuilder:FormBuilder) { }
+  constructor(private authService:AuthService,public formBuilder:FormBuilder,private router :Router) { }
   datosUser ={};
   // email:string;
   // password:string;
@@ -38,12 +40,15 @@ export class Login1Page implements OnInit {
       
     }
     else{
-      console.log(this.ionicForm.value)
       this.login(this.ionicForm.value)
     }
     this.ionicForm.get('nombre').enable();
     this.ionicForm.reset();
     
+  }
+
+  ir(){
+    this.router.navigate(['/'])
   }
 
 }

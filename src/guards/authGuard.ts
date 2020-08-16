@@ -8,13 +8,12 @@ import { AuthService } from 'src/services/auth/auth.service';
 export class AuthGuard implements CanActivate{
     constructor(private authService:AuthService,private router:Router,private rutaActiva:ActivatedRoute){}
 
-    canActivate(){
-        if(this.authService.isLoggedIn()){
+    async canActivate(){
+        if(await this.authService.isLoggedIn()){
            return true;
         }
         else
        {
-           console.log('entro else ')
            this.router.navigate(['/login'])
            return false;
        }

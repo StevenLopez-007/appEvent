@@ -6,8 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class LoginGuard implements CanActivate{
     constructor(private authService:AuthService,private router:Router){}
-    canActivate(){
-        if(this.authService.isLoggedIn()){
+    async canActivate(){
+        if(await this.authService.isLoggedIn()){
             this.router.navigate(['/'])
             return false
         }

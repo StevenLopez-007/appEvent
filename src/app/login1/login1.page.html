@@ -18,44 +18,56 @@
         <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="width: 100%;">
         <ion-col size="12" style="margin-top: 15px;" *ngIf="register">
           <ion-item lines="none">
-            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">Nombre Usuario
+            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">
+              Nombre Usuario {{
+                isSubmitted && errorControl.nombre.errors?.required?'| Requerido':
+                isSubmitted && errorControl.nombre.errors?.minlength?'| 2 caracteres mínimo':''
+              }}
             </ion-label>
             <ion-input formControlName="nombre" clear-input maxlength="35"></ion-input>
           </ion-item>
-          <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.nombre.errors?.required">
+          <!-- <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.nombre.errors?.required">
             El nombre es requerido.
           </span>
           <span class="error  ion-padding" *ngIf="isSubmitted && errorControl.nombre.errors?.minlength">
             El nombre debe ser mínimo 2 caracteres de largo.
-          </span>
+          </span> -->
         </ion-col>
         <ion-col size="12" [ngStyle]="{'margin-top': register?'0px':'15px'}">
           <ion-item lines="none">
-            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">E-mail
+            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">
+              E-mail {{
+                isSubmitted && errorControl.correo.errors?.required?'| Requerido':
+                isSubmitted && errorControl.correo.errors?.pattern?'| Invalido':''
+              }}
             </ion-label>
             <ion-input  formControlName="correo" clear-input type="email"></ion-input>
           </ion-item>
         </ion-col>
-        <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.correo.errors?.required">
+        <!-- <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.correo.errors?.required">
           El correo es requerido.
         </span>
         <span class="error  ion-padding" *ngIf="isSubmitted && errorControl.correo.errors?.pattern">
           Correo invalido.
-        </span>
+        </span> -->
         <ion-col size="12">
           <ion-item lines="none">
-            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">Contraseña
+            <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">
+              Contraseña {{
+                isSubmitted && errorControl.password.errors?.required?'| Requerida':
+                isSubmitted && errorControl.password.errors?.minlength?'| 6 caracteres mínimo':''
+              }}
             </ion-label>
             <ion-input formControlName="password" enterkeyhint="enter" [type]="showPassword?'text':'password'"></ion-input>
             <ion-icon (click)="showPassword = !showPassword" slot="end" [name]="showPassword?'eye-outline':'eye-off-outline'" style="color: white;" class="ion-align-self-center"></ion-icon>
           </ion-item>
         </ion-col>
-        <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+        <!-- <span class=" error ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
           La contraseña es requerida.
         </span>
         <span class="error  ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.minlength">
           La contraseña debe ser mínimo 6 caracteres de largo.
-        </span>
+        </span> -->
         <ion-col *ngIf="!register" size="12" class="ion-justify-content-end" style="display: flex;">
           <ion-label class="ion-text-end" style="color:#fe637b;margin-bottom: 15px; font-size: 14px; font-family: Comforta-Light;">Olvide mi
             contraseña</ion-label>
@@ -63,6 +75,11 @@
         <ion-col size="12">
           <ion-button type="submit" class="buttonLogin" expand="block" shape="round">
             Login
+          </ion-button>
+        </ion-col>
+        <ion-col size="12">
+          <ion-button (click)="ir()" class="buttonLogin" expand="block" shape="round">
+            Ir
           </ion-button>
         </ion-col>
       </form>

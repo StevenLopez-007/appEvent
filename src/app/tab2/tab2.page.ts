@@ -99,7 +99,7 @@ export class Tab2Page implements OnInit {
   async presentLoading() {
     const loading = this.loadingController.create({
       cssClass: 'loadingClass',
-      message: 'Guardand...',
+      message: 'Guardando...',
       spinner:'crescent',
       translucent: true
     });
