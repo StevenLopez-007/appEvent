@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar style="--background:#180B4F;">
+      <ion-title class="titulo">Ventas</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="closeModal()" style="--color:white;">
+          <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" *ngFor="let sale of sales">
+        <ion-item>
+          <ion-card class="sales">
+            <ion-item lines="none">
+               <div>
+                
+               </div>
+            </ion-item>
+          </ion-card>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

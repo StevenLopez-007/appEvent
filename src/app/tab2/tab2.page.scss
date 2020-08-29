@@ -9,6 +9,13 @@
 }
 .formDatosEvent ion-input{
     --padding-start:0;
+    font-family: Comforta-Light;
+}
+.formDatosEvent ion-textarea{
+    font-family: Comforta-Light;
+}
+.formDatosEvent ion-datetime{
+    font-family: Comforta-Light;
 }
 .titulo{
     display: flex;

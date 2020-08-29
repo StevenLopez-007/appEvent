@@ -30,6 +30,14 @@ const routes: Routes = [
     path: 'error-emails',
     loadChildren: () => import('./error-emails/error-emails.module').then( m => m.ErrorEmailsPageModule)
   },
+  {
+    path: 'sale-ticket',
+    loadChildren: () => import('./sale-ticket/sale-ticket.module').then( m => m.SaleTicketPageModule)
+  },
+  {
+    path: 'sales',
+    loadChildren: () => import('./sales/sales.module').then( m => m.SalesPageModule)
+  },
 ];
 @NgModule({
   imports: [

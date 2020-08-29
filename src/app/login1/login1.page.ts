@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import {Router} from '@angular/router';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login1',
@@ -12,10 +12,8 @@ import {Router} from '@angular/router';
 export class Login1Page implements OnInit {
   ionicForm:FormGroup;
   isSubmitted =false;
-  constructor(private authService:AuthService,public formBuilder:FormBuilder,private router :Router) { }
+  constructor(private authService:AuthService,public formBuilder:FormBuilder,private router :Router,private storage:Storage) { }
   datosUser ={};
-  // email:string;
-  // password:string;
   register:boolean = false;
   showPassword:boolean=false;
   ngOnInit() {

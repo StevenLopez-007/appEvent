@@ -35,7 +35,8 @@ export class AuthService{
     }
 
     private async storeToken(aToken:string,rToken:string){
-        // await this.storage.set('a-token',token)
+        // await this.storage.set('a-token',aToken);
+        // await this.storage.set('r-token',rToken);
         window.localStorage.setItem('a-token',aToken);
         if(rToken!=''){
             window.localStorage.setItem('r-token',rToken)

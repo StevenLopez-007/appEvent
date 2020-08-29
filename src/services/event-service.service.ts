@@ -2,6 +2,7 @@ import { Injectable,Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ievent } from '../model/ievent';
 import { Observable } from 'rxjs';
+import { ISales } from '../model/i-sales';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,19 @@ export class EventService {
 
   public saveEvent(event:Object){
     return this.http.post<any>(`${this.url}event/create`,{event},{observe:'response'})
+  }
+
+  public addEntradas(idEvent,numeroEntradas){
+    return this.http.post<any>(`${this.url}event/addEntradas`,{numeroEntradas:numeroEntradas},{params:{'idEvent':idEvent},observe:'response'})
+  }
+
+  public saleTicket(idEvent:string,datosClient:Object){
+    return this.http.post<any>(`${this.url}event/saleTicket/`,{nameClient:datosClient['name'],emailClient:datosClient['email']},
+    {params:{'idEvent':idEvent},observe:'response'})
+  }
+
+  public sales(idEvent:string):Observable<ISales[]>{
+    return this.http.get<ISales[]>(`${this.url}event/sales`,{params:{'idEvent':idEvent}})
   }
 
   public getEventPerUser():Observable<Ievent[]> {

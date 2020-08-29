@@ -49,6 +49,7 @@ export class Tab2Page implements OnInit {
       this.eventService.saveEvent(this.eventForm.value).pipe(finalize(()=>{this.loadingController.dismiss()})).subscribe(result => {
         if (result.status === 200) {
           this.eventService.sendInvitation(this.colaboradores, result['body']['event']).pipe(finalize(async ()=>{
+            this.enviado=false;
             this.eventForm.reset();
             await this.loadingController.dismiss();
           })).pipe(finalize(()=>{

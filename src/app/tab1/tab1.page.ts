@@ -6,6 +6,8 @@ import { PopoverController, ModalController } from '@ionic/angular';
 // import { OptionsEventComponent } from '../options-event/options-event.component';
 import { VerColaboradoresPage } from '../ver-colaboradores/ver-colaboradores.page';
 import { Storage } from '@ionic/storage';
+import { SaleTicketPage } from '../sale-ticket/sale-ticket.page';
+import { SalesPage } from '../sales/sales.page';
 
 @Component({
   selector: 'app-tab1',
@@ -33,7 +35,16 @@ export class Tab1Page implements OnInit{
       this.events=res['events']
     });
   }
+  async sales(idEvent){
+    const modal = await this.modalController.create({
+      component:SalesPage,
+      componentProps:{
+        'idEvent':idEvent
+      }
+    })
 
+    await modal.present();
+  }
   async verColaboradores(colaboradores:any,nameEvent:string,event:Object){
     const modal = await this.modalController.create({
       component:VerColaboradoresPage,
@@ -44,6 +55,15 @@ export class Tab1Page implements OnInit{
       }
     });
     return await modal.present();
+  }
+  async saleTicket(idEvent){
+    const modal = this.modalController.create({
+      component:SaleTicketPage,
+      componentProps:{
+        'idEvent':idEvent
+      }
+    })
+    return await (await modal).present();
   }
   // async optionsEvents(env:any){
   //   const popover = this.popoverCtrl.create({

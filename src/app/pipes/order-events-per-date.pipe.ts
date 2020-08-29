@@ -9,7 +9,7 @@ export class OrderEventsPerDatePipe implements PipeTransform {
     return events? events.sort((a,b):any=>{
       var a:any = new Date(a.fechaEvento);
       var b:any = new Date(b.fechaEvento);
-      return a-b
+      return b-a
     }):[];
   }
 

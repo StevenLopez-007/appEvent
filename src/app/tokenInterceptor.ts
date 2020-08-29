@@ -59,7 +59,8 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler):Observable<
     private addToken(req:HttpRequest<any>,token:string){
         return req.clone({
             setHeaders:{
-                'a-token':token
+                'a-token':token,
+                'Access-Control-Allow-Origin': '*'
             },
         })
     }

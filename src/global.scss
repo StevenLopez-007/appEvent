@@ -23,9 +23,10 @@
  }
  ion-grid{
      max-height: 100%;
+     overflow: auto;
  }
  ion-content{
-     overflow: auto;
+    //  overflow: auto;
      --background:#180B4F;
      
  }
@@ -65,6 +66,12 @@
     --spinner-color: #fff;
     font-family: Comforta-Bold;
     color: #fff;
+  }
+
+  .toastClass{
+    --color:#fe637b;
+    text-align: center;
+    font-family: Comforta-Bold;
   }
 
 /* Core CSS required for Ionic components to work properly */

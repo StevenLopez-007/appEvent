@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-header>
+    <ion-toolbar style="--background:#180B4F;">
+      <ion-buttons slot="start">
+      <ion-button (click)="closeModal()" style="--color:white;">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+      <ion-title class="titulo">Taquilla</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-grid fixed class="ion-padding" class="formDatosEvent">
+    <ion-row>
+      <ion-label class="titulo ion-margin">Datos del cliente (obligatorios)</ion-label>
+      <form [formGroup]="taquillaForm" novalidate (ngSubmit)="sale()" style="width: 100%;">
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label position="floating">Nombre
+            {{enviado && errrosForm.name.errors?.required?'| Requerido':
+              enviado && errrosForm.name.errors?.minlength?'| Minimo 1 caracter de largo':
+              enviado && errrosForm.name.errors?.maxlength?'| Máximo 64 caracter de largo':''
+            }}
+          </ion-label>
+          <ion-input formControlName="name" required [maxlength]="64" clear-input style="--color:white;"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-item lines="none">
+          <ion-label position="floating">E-mail
+            {{enviado && errrosForm.email.errors?.required?'| Requerido':
+              enviado && errrosForm.email.errors?.pattern?'| Inválido':''
+            }}
+          </ion-label>
+          <ion-input formControlName="email" required [maxlength]="64" clear-input style="--color:white;"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
+          Vender
+        </ion-button>
+      </ion-col>
+    </form>
+    </ion-row>
+  </ion-grid>
+</ion-content>

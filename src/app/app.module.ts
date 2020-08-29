@@ -23,7 +23,7 @@ import {IonicStorageModule} from '@ionic/storage'
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
+    {provide:'API_BASE_URL',useValue:'http://localhost:3000/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]
