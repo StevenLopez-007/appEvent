@@ -59,7 +59,7 @@
     <ion-row class="ion-justify-content-center ion-padding-end ion-padding-start"
       *ngIf="events?.length>0;else loadingProxEvents">
       <ion-col size="12" *ngFor="let event of (events | orderEventsPerDate)">
-        <ion-card class="proximosEventos">
+        <ion-card class="proximosEventos" >
 
           <ion-item-sliding>
             <ion-item lines="none">

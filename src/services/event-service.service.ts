@@ -18,6 +18,10 @@ export class EventService {
     return this.http.post<any>(`${this.url}event/addEntradas`,{numeroEntradas:numeroEntradas},{params:{'idEvent':idEvent},observe:'response'})
   }
 
+  public validateEntry(entryToken:string){
+    return this.http.get<any>(`${this.url}event/validateEntry`,{headers:{'e-token':entryToken}});
+  }
+
   public saleTicket(idEvent:string,datosClient:Object){
     return this.http.post<any>(`${this.url}event/saleTicket/`,{nameClient:datosClient['name'],emailClient:datosClient['email']},
     {params:{'idEvent':idEvent},observe:'response'})

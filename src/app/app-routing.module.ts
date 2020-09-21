@@ -20,9 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./login1/login1.module').then( m => m.Login1PageModule)
   },
   {
-    path:'**',redirectTo:''
-  },
-  {
     path: 'ver-colaboradores',
     loadChildren: () => import('./ver-colaboradores/ver-colaboradores.module').then( m => m.VerColaboradoresPageModule)
   },
@@ -37,6 +34,14 @@ const routes: Routes = [
   {
     path: 'sales',
     loadChildren: () => import('./sales/sales.module').then( m => m.SalesPageModule)
+  },
+  {
+    path: 'validate-entry',
+    canActivate:[AuthGuard],
+    loadChildren: () => import('./validate-entry/validate-entry.module').then( m => m.ValidateEntryPageModule)
+  },
+  {
+    path:'**',redirectTo:''
   },
 ];
 @NgModule({

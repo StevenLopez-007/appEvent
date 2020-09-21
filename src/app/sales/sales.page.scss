@@ -1,0 +1,44 @@
+.searchBar{
+    --icon-color:white; 
+    --background:#3C297E;
+    --color:white; 
+    --placeholder-color:white;
+    --cancel-button-color:white;
+    --border-radius:10px;
+}
+ion-item{
+    --background:#3C297E;
+    padding: 2%;
+}
+.sales{
+    --background:#3C297E;
+    width: 100%;
+    height: auto;
+    line-height: 15px;
+}
+.sales ion-card-title{
+    font-size: 12px;
+    font-family: Comforta-Light;
+    letter-spacing: 0.5px;
+    margin: 5px;
+}
+.sales ion-card-subtitle{
+    font-size: 10px;
+    color:#614DCA;
+    font-family: Comforta-Light;
+}
+ion-card-title{
+    font-family: Comforta-Bold;
+    letter-spacing: -1px;
+    color:white;
+}
+.proximosEventos ion-item-option{
+    --background:#33CCCC;
+}
+
+ion-select {
+    position: absolute;
+   .select-icon, .select-text {
+       display: none !important;  /* hidden triangle icon and selected text */
+   }
+}

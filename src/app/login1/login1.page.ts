@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
-import {Router} from '@angular/router';
-import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-login1',
@@ -12,7 +10,7 @@ import { Storage } from '@ionic/storage';
 export class Login1Page implements OnInit {
   ionicForm:FormGroup;
   isSubmitted =false;
-  constructor(private authService:AuthService,public formBuilder:FormBuilder,private router :Router,private storage:Storage) { }
+  constructor(private authService:AuthService,public formBuilder:FormBuilder) { }
   datosUser ={};
   register:boolean = false;
   showPassword:boolean=false;
@@ -43,10 +41,6 @@ export class Login1Page implements OnInit {
     this.ionicForm.get('nombre').enable();
     this.ionicForm.reset();
     
-  }
-
-  ir(){
-    this.router.navigate(['/'])
   }
 
 }

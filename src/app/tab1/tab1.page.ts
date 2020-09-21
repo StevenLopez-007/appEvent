@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../../services/event-service.service';
 import { Ievent } from '../../model/ievent';
 import { Observable } from 'rxjs';
-import { PopoverController, ModalController } from '@ionic/angular';
+import {ModalController, AlertController } from '@ionic/angular';
 // import { OptionsEventComponent } from '../options-event/options-event.component';
 import { VerColaboradoresPage } from '../ver-colaboradores/ver-colaboradores.page';
 import { Storage } from '@ionic/storage';
@@ -22,7 +22,7 @@ export class Tab1Page implements OnInit{
     spaceBetween:-85,
     // width:350
   };
-  constructor(private eventService:EventService,private modalController: ModalController,private storage:Storage) {}
+  constructor(private eventService:EventService,private modalController: ModalController) {}
   ngOnInit(){
    this.getEvents()
   }  

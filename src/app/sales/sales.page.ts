@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, LoadingController } from '@ionic/angular';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { ModalController, LoadingController, IonSelect } from '@ionic/angular';
 import { EventService } from '../../services/event-service.service';
 import { finalize } from 'rxjs/operators';
 import { ISales } from '../../model/i-sales';
@@ -12,20 +12,27 @@ import { Observable } from 'rxjs';
 export class SalesPage implements OnInit {
 
   @Input() idEvent:string;
+  @ViewChild('selectFilter') selectionFilter:IonSelect;
   sales:Observable<ISales[]>;
+  optionsSelectPopover={
+    header: 'Buscar por...',
+  }
+  searchPer:string='nameClient';
+  searchFilter:string;
   constructor(private modalController: ModalController,
               private eventService:EventService,
               private loadingController: LoadingController) { }
 
-  ngOnInit() {
-    this.getSales();
+  async ngOnInit() {
+    await this.getSales();
   }
 
   async closeModal(){
     await this.modalController.dismiss();
   }
 
-  getSales(){
+  async getSales(){
+    await this.presentLoading();
     this.eventService.sales(this.idEvent).pipe(finalize(async ()=>{
       await this.loadingController.dismiss()
     })).subscribe((res)=>{
@@ -40,5 +47,9 @@ export class SalesPage implements OnInit {
       translucent:true
     });
     await loading.present();
+  }
+
+  async  openFilters(){
+    await this.selectionFilter.open();
   }
 }

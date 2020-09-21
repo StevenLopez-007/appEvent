@@ -72,7 +72,7 @@ export class SaleTicketPage implements OnInit {
       cssClass:'toastClass',
       message:message,
       duration:3000,
-      keyboardClose:true
+      keyboardClose:true,
 
     })
     toast.present();

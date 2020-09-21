@@ -13,17 +13,18 @@ import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { TokenInterceptor } from './tokenInterceptor';
 import { CommonModule } from '@angular/common';
 
-import {IonicStorageModule} from '@ionic/storage'
+import {IonicStorageModule} from '@ionic/storage';
+import { FilterSalesPipe } from './pipes/filter-sales.pipe'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilterSalesPipe],
   entryComponents: [],
   imports: [BrowserModule, CommonModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide:'API_BASE_URL',useValue:'http://localhost:3000/'},
+    {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]

@@ -35,11 +35,20 @@
           <ion-input formControlName="email" required [maxlength]="64" clear-input style="--color:white;"></ion-input>
         </ion-item>
       </ion-col>
-      <ion-col size="12">
+      <!-- <ion-col size="12">
         <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
           Vender
         </ion-button>
-      </ion-col>
+      </ion-col> -->
+      <!-- <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button type="submit" style="--background:#33CCCC;">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab> -->
+      <!-- <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
+        Vender
+      </ion-button> -->
+      <button type="submit" class="fab-button"><ion-icon name="add"></ion-icon></button>
     </form>
     </ion-row>
   </ion-grid>

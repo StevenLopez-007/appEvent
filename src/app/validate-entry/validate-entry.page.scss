@@ -1,0 +1,103 @@
+$grosorLineas: 2px;
+$duration-animation:2s;
+#divTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 250px;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  &::before {
+    content: "";
+    animation: fade;
+    animation-iteration-count: infinite;
+    animation-duration: $duration-animation;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: aqua;
+    width: 37px;
+    height: $grosorLineas;
+    box-shadow: 213px 0 0 aqua;
+  }
+  &::after {
+    content: "";
+    animation: fade;
+    animation-iteration-count: infinite;
+    animation-duration: $duration-animation;
+    position: absolute;
+    bottom: -35px;
+    right: 0;
+    background-color: aqua;
+    width: $grosorLineas;
+    height: 37px;
+    box-shadow: -250px 0 0 aqua;
+  }
+}
+#divBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 250px;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  &::before {
+    content: "";
+    animation: fade;
+    animation-iteration-count: infinite;
+    animation-duration: $duration-animation;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: aqua;
+    width: 37px;
+    height: $grosorLineas;
+    box-shadow: 213px 0 0 aqua;
+  }
+  &::after {
+    content: "";
+    animation: fade;
+    animation-iteration-count: infinite;
+    animation-duration: $duration-animation;
+    position: absolute;
+    top: -35px;
+    right: 0;
+    background-color: aqua;
+    width: $grosorLineas;
+    height: 37px;
+    box-shadow: -250px 0 0 aqua;
+  }
+}
+#divRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+#divLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
