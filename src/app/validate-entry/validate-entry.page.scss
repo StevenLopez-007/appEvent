@@ -43,6 +43,8 @@ $duration-animation:2s;
   margin: auto;
   width: 250px;
   background-color: rgba($color: #000000, $alpha: 0.7);
+  display: flex;
+  padding: 25px;
   &::before {
     content: "";
     animation: fade;
@@ -88,6 +90,18 @@ $duration-animation:2s;
   height: 100%;
   z-index: -1;
   background-color: rgba($color: #000000, $alpha: 0.7);
+}
+#lineScan{
+    position: absolute;
+    height: 2px;
+    width: 250px;
+    left: -250px;
+    background-color: aqua;
+}
+ion-fab-button{
+  --color:white;
+  --background: black;
+  --box-shadow:none;
 }
 
 @keyframes fade {

@@ -12,7 +12,6 @@ export class VerColaboradoresPage implements OnInit {
 @Input() colaboradores:Array<any>=[];
 @Input() nameEvent:string;
 @Input() event:Object;
-@ViewChild(IonRefresher) ionRefresher:IonRefresher;
   mailCol:string='';
   colaborador:Array<any>=[];
   buscando:boolean=false;
@@ -22,7 +21,7 @@ export class VerColaboradoresPage implements OnInit {
     private loadingController: LoadingController) { }
 
   ngOnInit() {
-    this.getCols();
+    this.getCols(null);
   }
   closeModal(){
     this.modalController.dismiss({
@@ -36,6 +35,7 @@ export class VerColaboradoresPage implements OnInit {
   }
 
   findUserByCorreo(){
+    console.log(this.mailCol)
     this.buscando=true
     this.authService.finUserByCorreo(this.mailCol).pipe(finalize(()=>{
       this.buscando=false
@@ -73,10 +73,9 @@ export class VerColaboradoresPage implements OnInit {
       console.log(error)
     })
   }
-
-  getCols(){
+  getCols(event){
     this.eventService.getCols(this.event['_id']).pipe(finalize(async ()=>{
-      await this.ionRefresher.complete()
+      event != null?await event.detail.complete():null;
     })).subscribe(result=>{
       this.colaboradores = result['colaboradores']
     })

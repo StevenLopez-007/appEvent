@@ -34,7 +34,6 @@ export class TokenInterceptor  implements HttpInterceptor{
 
 private handle401Error(request: HttpRequest<any>, next: HttpHandler):Observable<any> {
   if (!this.isRefreshing) {
-      console.log('entro if')
     this.isRefreshing = true;
     this.refreshTokenSubject.next(null);
 
@@ -46,7 +45,6 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler):Observable<
       }));
 
   } else {
-      console.log('entro else')
     return this.refreshTokenSubject.pipe(
       filter(token => token != null),
       take(1),

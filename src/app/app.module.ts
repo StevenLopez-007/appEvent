@@ -14,15 +14,16 @@ import { TokenInterceptor } from './tokenInterceptor';
 import { CommonModule } from '@angular/common';
 
 import {IonicStorageModule} from '@ionic/storage';
-import { FilterSalesPipe } from './pipes/filter-sales.pipe'
+import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
-  declarations: [AppComponent, FilterSalesPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, CommonModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
+    QRScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}

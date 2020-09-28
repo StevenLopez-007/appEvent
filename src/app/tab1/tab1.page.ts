@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../../services/event-service.service';
 import { Ievent } from '../../model/ievent';
 import { Observable } from 'rxjs';
-import {ModalController, AlertController } from '@ionic/angular';
-// import { OptionsEventComponent } from '../options-event/options-event.component';
+import {ModalController, PopoverController } from '@ionic/angular';
+import { OptionsEventComponent } from '../options-event/options-event.component';
 import { VerColaboradoresPage } from '../ver-colaboradores/ver-colaboradores.page';
-import { Storage } from '@ionic/storage';
 import { SaleTicketPage } from '../sale-ticket/sale-ticket.page';
 import { SalesPage } from '../sales/sales.page';
 
@@ -20,12 +19,11 @@ export class Tab1Page implements OnInit{
     slidesPerView:1,
     initialSlide:1,
     spaceBetween:-85,
-    // width:350
   };
-  constructor(private eventService:EventService,private modalController: ModalController) {}
+  constructor(private eventService:EventService,private modalController: ModalController,private popoverController: PopoverController) {}
   ngOnInit(){
-   this.getEvents()
-  }  
+   this.getEvents();
+  } 
   doRefresh(event){
     this.getEvents();
     event.target.complete();
@@ -65,15 +63,35 @@ export class Tab1Page implements OnInit{
     })
     return await (await modal).present();
   }
-  // async optionsEvents(env:any){
-  //   const popover = this.popoverCtrl.create({
-  //     component:OptionsEventComponent,
-  //     cssClass:'',
-  //     event:env,
-  //     translucent:true,
-  //     keyboardClose:true
-  //   });
+  async optionsEvents(id:number,cols:Array<any>,nombre:string,event:Object,ev:any){ 
+    const popover = await this.popoverController.create({
+      component:OptionsEventComponent,
+      cssClass:'',
+      event:ev,
+      translucent:true,
+      keyboardClose:true
+    });
 
-  //   return (await popover).present();
-  // }
+     await popover.present();
+     const {data} = await popover.onWillDismiss();
+     switch(data['option']){
+       case 1:{
+          this.saleTicket(id);
+         break;
+        }
+      case 2:{
+        this.sales(id);
+        break;
+      }
+      case 3:{
+        this.verColaboradores(cols,nombre,event);
+        break;
+      }
+        default:{
+          
+          
+          break;
+        }
+     }
+  }
 }

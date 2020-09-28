@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-select [(ngModel)]="searchPer" okText="Aceptar" cancel-text="Cancelar" #selectFilter interface="popover" [interfaceOptions]="optionsSelectPopover" value="nameClient">
+  <ion-select [(ngModel)]="searchBy" okText="Aceptar" cancel-text="Cancelar" #selectFilter [interfaceOptions]="optionsSelectPopover" value="nameClient">
     <ion-select-option value="nameClient">Nombre Cliente</ion-select-option>
     <ion-select-option value="emailClient">Email Cliente</ion-select-option>
     <ion-select-option value="seller">Vendedor</ion-select-option>
@@ -22,7 +22,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="12" *ngFor="let sale of sales | filterSales:searchPer:searchFilter">
+      <ion-col size="12" *ngFor="let sale of sales | filterSales:searchBy:searchFilter">
           <ion-card class="sales" style="margin:0;">
             <ion-item lines="none">
                <div style="width: 100%;">

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar style="--background:#180B4F;">
-    <ion-title class="titulo">Validación de entrada.</ion-title>
-    <!-- <ion-buttons slot="start" *ngIf="!escaneando">
+    <ion-title class="titulo">Validación de entrada</ion-title>
+    <!-- <ion-buttons slot="start">
         <ion-back-button style="color:white;" text="" icon="arrow-back-outline" defaultHref="/"></ion-back-button>
     </ion-buttons> -->
 
@@ -10,9 +10,20 @@
     </ion-button> -->
   </ion-toolbar>
 </ion-header>
-<div style="height: 100%; width: 100%;background-color:transparent;">
+<div style="height: 100%; width: 100%;" id="contentScan">
     <div id="divTop"></div>
-    <div id="divBottom"></div>
-    <div id="divRight"></div>
+    <div class="ion-justify-content-around ion-align-items-end" id="divBottom">
+      <ion-fab-button (click)="camera?null:lightControl()" [disabled]="camera?true:false">
+        <ion-icon [name]="light?'flash-outline':'flash-off-outline'"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button (click)="cameraControl()">
+        <ion-icon name="camera-reverse-outline"></ion-icon>
+      </ion-fab-button>
+    </div>
+    <div id="divRight">
+      <div id="lineScan">
+
+      </div>
+    </div>
     <div id="divLeft"></div>
 </div>

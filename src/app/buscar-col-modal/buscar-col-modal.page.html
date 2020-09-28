@@ -5,8 +5,8 @@
     </ion-toolbar>
     <ion-toolbar style="--background:#180B4F;">
       <ion-searchbar inputmode="email" [(ngModel)]="mailCol" class="searchBar" cancelButtonText="Cerrar"
-        placeholder="Buscar Colaborador (E-mail)" inputmode="search" type="text" (ionCancel)="closeModal(0)"
-        [debounce]="250" showCancelButton="always"></ion-searchbar>
+        placeholder="Buscar Colaborador (E-mail)" type="text" (ionCancel)="closeModal(0)"
+        [debounce]="250" show-cancel-button="always"></ion-searchbar>
       <div style="display: flex; justify-content: space-around;">
         <ion-button id="buttomBuscar" (click)="findUserByCorreo()" expand="block" shape="round">
           Buscar

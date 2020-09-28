@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ScanDesactivateGuard } from 'src/guards/scan-desactivate.guard';
+import { ScanGuardGuard } from 'src/guards/scan-guard.guard';
 import { AuthGuard } from '../guards/authGuard';
 import { LoginGuard } from '../guards/loginGuard';
-
 const routes: Routes = [
   {
     path: '',
-    canActivate:[AuthGuard],
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
@@ -35,11 +35,12 @@ const routes: Routes = [
     path: 'sales',
     loadChildren: () => import('./sales/sales.module').then( m => m.SalesPageModule)
   },
-  {
-    path: 'validate-entry',
-    canActivate:[AuthGuard],
-    loadChildren: () => import('./validate-entry/validate-entry.module').then( m => m.ValidateEntryPageModule)
-  },
+  // {
+  //   path: 'validate-entry',
+  //   canActivate:[AuthGuard,ScanGuardGuard],
+  //   canDeactivate:[ScanDesactivateGuard],    
+  //   loadChildren: () => import('./validate-entry/validate-entry.module').then( m => m.ValidateEntryPageModule)
+  // },
   {
     path:'**',redirectTo:''
   },

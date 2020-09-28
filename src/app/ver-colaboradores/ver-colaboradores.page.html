@@ -1,15 +1,17 @@
 
 
 <ion-content style="--background:#180B4F;" [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="getCols()" style="z-index:1000;">
+  <ion-refresher slot="fixed" (ionRefresh)="getCols($event)" style="z-index:1000;">
     <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando..."></ion-refresher-content>
   </ion-refresher>
   <ion-header>
     <ion-toolbar style="--background:#180B4F;">
-      <ion-title class="titulo">Colaboradores</ion-title>
+      <ion-title class="titulo">Colaboradores {{mailCol}}</ion-title>
     </ion-toolbar>
     <ion-toolbar style="--background:#180B4F;">
-      <ion-searchbar [(ngModel)]="mailCol"  class="searchBar" cancelButtonText="Cerrar" placeholder="Buscar Colaborador (E-mail)" inputmode="search" type="text" (ionCancel)="closeModal()" [debounce]="250" showCancelButton="always"></ion-searchbar>
+      <ion-searchbar inputmode="email" [(ngModel)]="mailCol" class="searchBar" cancelButtonText="Cerrar"
+        placeholder="Buscar Colaborador (E-mail)" type="text" (ionCancel)="closeModal()"
+        [debounce]="250" show-cancel-button="always"></ion-searchbar>
       <ion-button id="buttomBuscar" (click)="findUserByCorreo()" expand="block" shape="round">
         Buscar Usuario
       </ion-button>

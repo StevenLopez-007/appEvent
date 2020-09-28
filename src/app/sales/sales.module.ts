@@ -16,6 +16,6 @@ import { FilterSalesPipe } from '../pipes/filter-sales.pipe';
     IonicModule,
     SalesPageRoutingModule
   ],
-  declarations: [SalesPage,FilterSalesPipe]
+  declarations: [SalesPage,FilterSalesPipe],
 })
 export class SalesPageModule {}

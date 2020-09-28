@@ -74,6 +74,10 @@
     font-family: Comforta-Bold;
   }
 
+  .alertFilterClass{
+    --background:var(--ion-color-primary);
+  }
+
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 

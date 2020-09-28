@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
-
+// import { EscanerGuard } from '../../guards/escaner.guard';
+import { AuthGuard } from '../../guards/authGuard';
+import { ScanGuardGuard } from '../../guards/scan-guard.guard';
+import { ScanDesactivateGuard } from '../../guards/scan-desactivate.guard';
 const routes: Routes = [
   {
     path: 'tabs',
     component: TabsPage,
+    canActivate:[AuthGuard],
+    // canActivateChild:[EscanerGuard],
     children: [
       {
         path: 'tab1',
@@ -21,7 +26,13 @@ const routes: Routes = [
       },
       {
         path:'tab4',
-        loadChildren:()=>import('../validate-entry/validate-entry.module').then(m=>m.ValidateEntryPageModule)
+        canActivate:[ScanGuardGuard],
+        canDeactivate:[ScanDesactivateGuard],
+        loadChildren:()=>import('../validate-entry/validate-entry.module').then(m=>m.ValidateEntryPageModule),
+        data:{
+          camera:0,
+          light:false
+        }
       },
       {
         path: '',

@@ -17,7 +17,7 @@ export class SalesPage implements OnInit {
   optionsSelectPopover={
     header: 'Buscar por...',
   }
-  searchPer:string='nameClient';
+  searchBy:string='nameClient';
   searchFilter:string;
   constructor(private modalController: ModalController,
               private eventService:EventService,
