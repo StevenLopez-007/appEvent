@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar style="--background:#180B4F;--box-shadow:none;">
+    <ion-title class="titulo">Colaboradores</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="closeModal()" style="--color:white;">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()" style="--color:white;">
+        <ion-icon name="person-add-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid fixed>
+    <ion-row *ngIf="colaboradores?.length>0;else emptyCols">
+      <!-- <ion-label *ngIf="colaborador?.length==0" class="titulo ion-margin ion-text-left">En {{nameEvent}}</ion-label> -->
+      <!-- <ion-label *ngIf="colaborador?.length>0" class="titulo ion-margin ion-text-left">Puedes agregar como colaborador a este usuario:</ion-label> -->
+      <ion-col size="12" *ngFor="let col of colaboradores;let i = index"
+        [attr.data-index]="i">
+        <ion-card class="proximosEventos ion-padding" style="margin:0;">
+          
+            <ion-item lines="none">
+              <!-- <ion-avatar class="ion-margin">
+                <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              </ion-avatar> -->
+              <div>
+                <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
+                <ion-card-subtitle class="ion-text-left">{{col.correo}}</ion-card-subtitle>
+              </div>
+            </ion-item>
+
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ng-template #emptyCols>
+    <img src="../../assets/empty2.svg" height="50%" width="50%" style="position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  bottom: 0;
+  top: 0;">
+  </ng-template>
+</ion-content>

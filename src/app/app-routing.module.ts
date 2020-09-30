@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ScanDesactivateGuard } from 'src/guards/scan-desactivate.guard';
-import { ScanGuardGuard } from 'src/guards/scan-guard.guard';
 import { AuthGuard } from '../guards/authGuard';
 import { LoginGuard } from '../guards/loginGuard';
 const routes: Routes = [
@@ -36,6 +34,10 @@ const routes: Routes = [
     loadChildren: () => import('./sales/sales.module').then( m => m.SalesPageModule)
   },
   // {
+  //   path:'adminCols',
+  //   loadChildren:()=> import('./administrar-cols/administrar.module').then(m=>m.AdministrarColsComponentModule)
+  // },
+  // {
   //   path: 'validate-entry',
   //   canActivate:[AuthGuard,ScanGuardGuard],
   //   canDeactivate:[ScanDesactivateGuard],    
@@ -43,6 +45,10 @@ const routes: Routes = [
   // },
   {
     path:'**',redirectTo:''
+  },
+  {
+    path: 'admin-cols',
+    loadChildren: () => import('./admin-cols/admin-cols.module').then( m => m.AdminColsPageModule)
   },
 ];
 @NgModule({

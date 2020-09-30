@@ -1,0 +1,27 @@
+ion-item{
+    --background:#3C297E;
+}
+.proximosEventos{
+    --background:#3C297E;
+    width: 100%;
+    height: auto;
+    line-height: 15px;
+}
+.proximosEventos ion-card-title{
+    font-size: 12px;
+    font-family: Comforta-Light;
+    letter-spacing: 0.5px;
+}
+.proximosEventos ion-card-subtitle{
+    font-size: 10px;
+    color:#614DCA;
+    font-family: Comforta-Light;
+}
+ion-card-title{
+    font-family: Comforta-Bold;
+    letter-spacing: -1px;
+    color:white;
+}
+.proximosEventos ion-item-option{
+    --background:#33CCCC;
+}
