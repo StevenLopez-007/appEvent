@@ -61,8 +61,8 @@
       <div style="position: relative;display:flex;">
         <div id="avatar" class="ion-align-items-center ion-justify-content-center"
           *ngFor="let col of colaboradores;let i= index;" [attr.data-index]="i"
-          [style]="{'z-index':i,'position':i>0?'absolute':'inherit','left':i*22+'px','background-color':colors[i]}"
-          style="margin:0 !important;">
+          [style]="{'background-color':colors[i]}"
+          style="margin:0 0 0 -8px !important;">
           {{col.nombre[0]}}
         </div>
       </div>

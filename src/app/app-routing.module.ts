@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/authGuard';
 import { LoginGuard } from '../guards/loginGuard';
+import { NetworkGuard } from '../guards/network.guard';
 const routes: Routes = [
   {
     path: '',
@@ -44,11 +45,16 @@ const routes: Routes = [
   //   loadChildren: () => import('./validate-entry/validate-entry.module').then( m => m.ValidateEntryPageModule)
   // },
   {
-    path:'**',redirectTo:''
-  },
-  {
     path: 'admin-cols',
     loadChildren: () => import('./admin-cols/admin-cols.module').then( m => m.AdminColsPageModule)
+  },
+  {
+    path: 'network-state',
+    canDeactivate:[NetworkGuard],
+    loadChildren: () => import('./network-state/network-state.module').then( m => m.NetworkStatePageModule)
+  },
+  {
+    path:'**',redirectTo:''
   },
 ];
 @NgModule({

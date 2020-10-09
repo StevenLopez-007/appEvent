@@ -72,3 +72,12 @@ ion-item{
     color: white;
     font-weight: bold;
 }
+
+.rotateCard{
+    transform: rotateY(180deg) !important;
+}
+
+.rotatedCard{
+    display: none;
+}
+

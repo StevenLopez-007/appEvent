@@ -3,7 +3,7 @@
     <div class="circle1"></div>
     <div class="circle2"></div>
     <div class="circle3"></div>
-    <ion-grid class="grid">
+    <ion-grid class="grid fadeIn animated">
       <ion-row>        
         <ion-col size="5">
           <ion-segment [value]="register?1:0" class="segments">
@@ -21,7 +21,8 @@
             <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">
               Nombre Usuario {{
                 isSubmitted && errorControl.nombre.errors?.required?'| Requerido':
-                isSubmitted && errorControl.nombre.errors?.minlength?'| 2 caracteres mínimo':''
+                isSubmitted && errorControl.nombre.errors?.minlength?'| 2 caracteres mínimo':
+                isSubmitted && errorControl.nombre.errors?.pattern?'| Invalido':''
               }}
             </ion-label>
             <ion-input formControlName="nombre" clear-input maxlength="35"></ion-input>
@@ -74,7 +75,7 @@
         </ion-col>
         <ion-col size="12">
           <ion-button type="submit" class="buttonLogin" expand="block" shape="round">
-            Login
+            {{register?'Registrar':'Ingresar'}}
           </ion-button>
         </ion-col>
       </form>

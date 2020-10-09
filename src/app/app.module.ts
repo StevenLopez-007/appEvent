@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 
 import {IonicStorageModule} from '@ionic/storage';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
+import {Network} from '@ionic-native/network/ngx'
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { QRScanner } from '@ionic-native/qr-scanner/ngx';
     StatusBar,
     SplashScreen,
     QRScanner,
+    Network,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}

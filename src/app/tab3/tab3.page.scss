@@ -9,3 +9,17 @@ ion-item ion-label h4{
     color:#614DCA;
     font-family: Comforta-Light;
 }
+ion-list{
+    background-color: transparent;
+}
+
+ion-list ion-list-header{
+    color: white;
+    font-family: Comforta-Bold;
+}
+ion-list ion-icon{
+    color:var(--colorSecundario);
+}
+ion-list ion-label{
+    --color:white;
+}

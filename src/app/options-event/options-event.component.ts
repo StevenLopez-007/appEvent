@@ -7,7 +7,6 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./options-event.component.scss'],
 })
 export class OptionsEventComponent implements OnInit {
-  option:number=0;
   constructor(private popoverController: PopoverController) { }
 
   ngOnInit() {}

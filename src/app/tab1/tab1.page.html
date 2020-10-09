@@ -23,11 +23,11 @@
       </ion-col>
       <ion-col size="12" style="padding: 0;">
         <ion-slides [options]="slideOptions" *ngIf="events?.length>0;else loading">
-          <ion-slide *ngFor="let event of events;let i =index" [attr.data-index]="i">
-            <ion-card [style]="{'--background':''|colorEvent}" class="ion-padding">
-              <ion-card-title class="ion-text-left">{{event.nombre}}</ion-card-title>
-              <ion-card-subtitle class="ion-text-left ion-padding-top">{{event.descripcion}}</ion-card-subtitle>
-              <ion-card-content>
+          <ion-slide *ngFor="let event of (events | orderEventsPerDate) ;let i =index" [attr.data-index]="i">
+            <ion-card [id]="'cardEvent'+i" (click)="rotateCard(i)" [style]="{'--background':''|colorEvent}" class="ion-padding">
+              <ion-card-title [id]="'titleCard1'+i" class="ion-text-left">{{event.nombre}}</ion-card-title>
+                <ion-card-subtitle [id]="'SubtitleCard1'+i" style="white-space: nowrap;overflow: hidden; text-overflow: ellipsis;" class="ion-text-left ion-padding-top">{{event.descripcion}}</ion-card-subtitle>
+              <ion-card-content [id]="'contentCard1'+i">
                 <ion-label style="color:white;">{{event.fechaEvento |date:'MMM d, yyy'}}</ion-label>
               </ion-card-content>
             </ion-card>

@@ -17,9 +17,10 @@ export class Tab1Page implements OnInit{
   events:Observable<Ievent[]>;
   slideOptions={
     slidesPerView:1,
-    initialSlide:1,
+    initialSlide:0,
     spaceBetween:-85,
   };
+
   constructor(private eventService:EventService,private modalController: ModalController,private popoverController: PopoverController) {}
   ngOnInit(){
    this.getEvents();
@@ -30,7 +31,7 @@ export class Tab1Page implements OnInit{
   }
   async getEvents(){
     this.eventService.getEventPerUser().subscribe(res=>{
-      this.events=res['events']
+      this.events=res['events'];
     });
   }
   async sales(idEvent){
@@ -73,7 +74,8 @@ export class Tab1Page implements OnInit{
     });
 
      await popover.present();
-     const {data} = await popover.onWillDismiss();
+     var {data} = await popover.onWillDismiss();
+     data === undefined? data =0:null;
      switch(data['option']){
        case 1:{
           this.saleTicket(id);
@@ -93,5 +95,13 @@ export class Tab1Page implements OnInit{
           break;
         }
      }
+  }
+  rotateCard(i:number){
+    document.getElementById(`cardEvent${i}`).classList.toggle('rotateCard');
+    setTimeout(()=>{
+      document.getElementById(`titleCard1${i}`).classList.toggle('rotatedCard');
+      document.getElementById(`SubtitleCard1${i}`).classList.toggle('rotatedCard')
+      document.getElementById(`contentCard1${i}`).classList.toggle('rotatedCard')
+    },70)
   }
 }
