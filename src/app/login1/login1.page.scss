@@ -3,6 +3,7 @@
     height: 100%;
     position: relative;
     background-color: #3d3d3d !important;
+    overflow: auto;
   }
   $colorCircle1: #fe637b;
   $colorCircle2: #f74f69;
@@ -58,7 +59,7 @@
     z-index: 99;
   }
   .circle3 {
-    position: absolute;
+    position: fixed;
     bottom: -35%;
     width: 100px;
     border-radius: 50px;
@@ -125,6 +126,12 @@
   }
   .error{
     color:white;
+  }
+  .tituloLogin{
+    font-family: Comforta-Bold;
+    text-align: center;
+    font-size: 24px;
+    color: white;
   }
   
   @media screen and (max-height:600px){

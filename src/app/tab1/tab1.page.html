@@ -1,11 +1,3 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar style="--background:#3B2E80">
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando...">
@@ -19,7 +11,7 @@
   <ion-grid fixed style="padding: 0;" class="fadeIn animated">
     <ion-row>
       <ion-col size="12">
-        <h1 class="titulo">Mis Eventos</h1>
+        <h1 style="margin-top:20px;" class="titulo">Mis eventos</h1>
       </ion-col>
       <ion-col size="12" style="padding: 0;">
         <ion-slides [options]="slideOptions" *ngIf="events?.length>0;else loading">
@@ -45,7 +37,7 @@
     </ion-row>
     <ion-row class="ion-justify-content-center ion-padding">
       <ion-col size="12">
-        <ion-segment (ionChange)="segmentChange($event)" value="events" style="--background:#2A1972;">
+        <ion-segment mode="ios" (ionChange)="segmentChange($event)" value="events" style="--background:var(--ion-color-secondary);">
           <ion-segment-button value="events">
             <ion-label>Proximos Eventos</ion-label>
           </ion-segment-button>
@@ -71,7 +63,7 @@
                 <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'MMM d, yyy'}}</ion-card-subtitle>
                 <ion-card-subtitle class="ion-text-left">{{event.fechaEvento| date:'HH:mm'}}</ion-card-subtitle>
               </div>
-              <ion-note class="ion-align-self-center" style="--color:white; font-family: Comforta-Light;" slot="end">
+              <ion-note class="ion-align-self-center" style="--color:var(--ion-color-tertiary-contrast); font-family: Comforta-Bold;" slot="end">
                 Entradas: {{event.numeroEntradas}}</ion-note>
             </ion-item>
             <!-- <ion-item-options side="start" style="border:none;">
@@ -91,7 +83,7 @@
       <ion-row>
         <ion-col *ngFor="let item of [0,0,0]" class="ion-justify-content-center ion-padding-end ion-padding-start"
           size="12">
-          <ion-skeleton-text animated style="width: 100%;height: 64px; background-color:#4D3BAC; border-radius: 5px;">
+          <ion-skeleton-text animated style="width: 100%;height: 64px; background-color:var(--ion-color-tertiary-shade); border-radius: 5px;">
           </ion-skeleton-text>
         </ion-col>
       </ion-row>

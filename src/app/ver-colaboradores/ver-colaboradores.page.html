@@ -1,35 +1,35 @@
 <ion-header>
-  <ion-toolbar style="--background:#180B4F;--box-shadow:none;">
+  <ion-toolbar style="--background:var(--ion-color-primary);--box-shadow:none;">
     <ion-title class="titulo">Agregar colaborador</ion-title>
     <ion-buttons slot="start">
-      <ion-button (click)="closeModal()" style="--color:white;">
+      <ion-button (click)="closeModal()" >
         <ion-icon name="close-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click)="findUserByCorreo()" style="--color:white;" [disabled]="buscando">
+      <ion-button (click)="findUserByCorreo()" [disabled]="buscando">
         <ion-icon name="search-outline" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button *ngIf="colaboradoresAdd.length>0" (click)="sendInvitation()" style="--color:white;">
+      <ion-button *ngIf="colaboradoresAdd.length>0" (click)="sendInvitation()" >
         <ion-icon  name="add-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content style="--background:#180B4F;" [fullscreen]="true">
+<ion-content style="--background:var(--ion-color-primary);" [fullscreen]="true">
   <ion-refresher #refreshCols slot="fixed" (ionRefresh)="getCols()" style="z-index:1000;">
     <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando..."></ion-refresher-content>
   </ion-refresher>
 
   <ion-grid fixed>
     <ion-row >
-      <ion-item style="--background:transparent;width: 100%;--highlight-color-valid:#614DCA;" >
-        <ion-icon style="color:white;" name="person-add-outline" slot="start"></ion-icon>
-        <ion-textarea [(ngModel)]="mailCol" clear-on-edit inputmode="text" placeholder="Buscar..." style="--color:white;">
-          <ion-chip *ngFor="let col of colaboradoresAdd;let i = index;" style="--color:#614DCA; --background:#32226d;">
-            <ion-label>{{col.nombre}}</ion-label>
-            <ion-icon name="close-circle" style="color:#33CCCC;" (click)="deleteCol(i)"></ion-icon>
+      <ion-item style="--background:transparent;width: 100%;--highlight-color-valid:var(--ion-color-tertiary-shade);" >
+        <ion-icon style="color:var(--ion-color-tertiary-contrast);" name="person-add-outline" slot="start"></ion-icon>
+        <ion-textarea enterkeyhint="search" (keyup.enter)="findUserByCorreo()" [(ngModel)]="mailCol" inputmode="email" placeholder="Buscar..." style="--color:var(--ion-color-tertiary-contrast);">
+          <ion-chip *ngFor="let col of colaboradoresAdd;let i = index;" style="--color:var(--ion-color-tertiary-shade); --background:var(--ion-chip-color);">
+            <ion-label style="--color:var(--ion-chip-text-color);">{{col.nombre}}</ion-label>
+            <ion-icon name="close-circle" style="color:var(--ion-color-buttom);" (click)="deleteCol(i)"></ion-icon>
           </ion-chip>
         </ion-textarea>
       </ion-item>

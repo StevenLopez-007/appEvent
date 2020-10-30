@@ -1,10 +1,10 @@
 .formDatosEvent ion-item{
-    --background:#3C297E; 
+    --background:var(--ion-color-tertiary); 
     border-radius: 10px;
     
 }   
 .formDatosEvent ion-label{
-    --color:white;
+    --color:var(--ion-color-tertiary-contrast);
     font-family: Comforta-Light;
 }
 .formDatosEvent ion-input{
@@ -25,7 +25,7 @@
     padding:4px 4px;
 }
 .proximosEventos{
-    --background:#3C297E;
+    --background:var(--ion-color-tertiary);
     width: 100%;
     height: auto;
     line-height: 15px;
@@ -37,7 +37,7 @@
 }
 .proximosEventos ion-card-subtitle{
     font-size: 10px;
-    color:#614DCA;
+    color:var(--ion-color-tertiary-shade);
     font-family: Comforta-Light;
 }
 ion-card-title{
@@ -46,5 +46,5 @@ ion-card-title{
     color:white;
 }
 .proximosEventos ion-item-option{
-    --background:#33CCCC;
+    --background:var(--ion-color-buttom);
 }

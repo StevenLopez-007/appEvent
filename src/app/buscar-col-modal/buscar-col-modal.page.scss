@@ -1,28 +1,30 @@
 .searchBar{
-    --icon-color:white; 
-    --background:#3C297E;
-    --color:white; 
-    --placeholder-color:white;
-    --cancel-button-color:white;
+    --icon-color:var(--ion-color-tertiary-contrast); 
+    --background:var(--ion-color-tertiary);
+    --color:var(--ion-color-tertiary-contrast); 
+    --placeholder-color:var(--ion-color-tertiary-contrast); 
+    --cancel-button-color:var(--ion-color-tertiary-contrast); 
     --border-radius:10px;
 }
 ion-item{
-    --background:#3C297E;
+    --background:var(--ion-color-tertiary);
 }
 .proximosEventos{
-    --background:#3C297E;
+    --background:var(--ion-color-tertiary);
     width: 100%;
     height: auto;
     line-height: 15px;
+    box-shadow: none;
 }
 .proximosEventos ion-card-title{
     font-size: 12px;
     font-family: Comforta-Light;
     letter-spacing: 0.5px;
+    color:var(--ion-color-tertiary-contrast);
 }
 .proximosEventos ion-card-subtitle{
     font-size: 10px;
-    color:#614DCA;
+    color:var(--ion-color-tertiary-shade);
     font-family: Comforta-Light;
 }
 ion-card-title{
@@ -34,8 +36,8 @@ ion-card-title{
     --background:#33CCCC;
 }
 #buttomBuscar{
-    --background:#33CCCC;
-    --color:white;
+    --background:var(--ion-color-buttom);
+    --color:var(--ion-color-text-buttom);
     font-family: Comforta-Light;
     width: 45%;
     font-size: 12px;

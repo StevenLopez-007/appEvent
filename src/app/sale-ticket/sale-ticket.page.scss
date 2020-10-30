@@ -1,29 +1,38 @@
-.formDatosEvent ion-item{
-    --background:#3C297E; 
-    border-radius: 10px;
-    
-}   
-.formDatosEvent ion-label{
-    --color:white;
-    font-family: Comforta-Light;
+.formDatosEvent ion-item {
+  --background: var(--ion-color-tertiary);
+  border-radius: 10px;
 }
-.formDatosEvent ion-input{
-    --padding-start:0;
-    font-family: Comforta-Light;
+.formDatosEvent ion-label {
+  --color: var(--ion-color-tertiary-contrast);
+  font-family: Comforta-Light;
 }
-.fab-button{
-height: 50px;
-width: 50px;
-border-radius: 50%;
-position: absolute;
-bottom: 10px;
-left: 0;
-right: 0;
-margin: auto;
-font-size: 24px;
-background-color: var(--colorSecundario);
-ion-icon{
+.formDatosEvent ion-input {
+  --padding-start: 0;
+  font-family: Comforta-Light;
+}
+.fab-button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 24px;
+  background-color: var(--ion-color-buttom);
+  ion-icon {
     position: absolute;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+  }
 }
+
+#iconSwipe {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  font-size: 26px;
+  color:var(--ion-color-tertiary-shade)
 }

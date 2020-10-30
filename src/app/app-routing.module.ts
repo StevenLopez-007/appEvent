@@ -56,6 +56,10 @@ const routes: Routes = [
   {
     path:'**',redirectTo:''
   },
+  {
+    path: 'options-sale',
+    loadChildren: () => import('./options-sale/options-sale.module').then( m => m.OptionsSalePageModule)
+  },
 ];
 @NgModule({
   imports: [

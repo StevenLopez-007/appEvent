@@ -18,7 +18,7 @@
     src: url('./fonts/Comfortaa-Light.ttf');
 }
  .titulo{
-     color:white;
+     color:var(--ion-color-tertiary-contrast);
      font-family: Comforta-Bold;
  }
  ion-grid{
@@ -27,7 +27,7 @@
  }
  ion-content{
     //  overflow: auto;
-     --background:#180B4F;
+     --background: var(--ion-color-primary);
      
  }
  .animated {
@@ -62,14 +62,21 @@
   }
 
   .loadingClass {
-    --background: #4D3BAC;
+    --background: var(--ion-color-secondary-contrast);
     --spinner-color: #fff;
     font-family: Comforta-Bold;
     color: #fff;
   }
+  .loadingClassLogin{
+    --background: #333333;
+    --spinner-color: #fe637b;
+    font-family: Comforta-Bold;
+    color: #fe637b;
+  }
 
   .toastClass{
-    --color:#fe637b;
+    --background:#eb445a;
+    --color:#fff;
     text-align: center;
     font-family: Comforta-Bold;
   }
@@ -87,9 +94,39 @@
   }
 
   .alertFilterClass{
-    --background:var(--ion-color-primary);
+    --background:#180B4F;
   }
 
+  .hideScrollContent{
+    position: absolute;
+    top: 0;
+  }
+
+  .modalSaleTicket{
+    --height:50vh;
+    --width:100%;
+    --backdrop-opacity:0.35;
+    --border-radius:20px;
+    position: absolute;
+    bottom:0;
+    overflow: hidden;
+  }
+
+  .buttonClassAlert{
+    color:#fff !important;
+  }
+  .alertClass{
+    --background: #7C75A7;
+  }
+  .alertClass .alert-message{
+    color:#fff;
+    font-family: Comforta-Light;
+  }
+
+  .alertClass .alert-title{
+    color:#fff;
+    font-family: Comforta-Bold;
+  }
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 

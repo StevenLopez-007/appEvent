@@ -1,8 +1,6 @@
-
-
-<ion-content style="--background:#180B4F;" [fullscreen]="true">
+<ion-content style="--background:var(--ion-color-primary);" [fullscreen]="true">
   <ion-header>
-    <ion-toolbar style="--background:#180B4F;"">
+    <ion-toolbar style="--background:var(--ion-color-primary);"">
       <ion-button (click)="close()" fill="clear" slot="end">
         Cerrar
       </ion-button>
@@ -13,7 +11,7 @@
    <ion-row>
     <ion-col size="12" *ngFor="let col of falidedEmails;let i = index" [attr.data-index]="i">
       <ion-card class="proximosEventos" style="margin:0;">
-        <ion-item-sliding >
+        
           <ion-item lines="none">
             <ion-avatar class="ion-margin">
               <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
@@ -23,7 +21,7 @@
               <ion-card-subtitle class="ion-text-left">{{col.email.correo}}</ion-card-subtitle>
             </div>
           </ion-item>
-        </ion-item-sliding>
+        
       </ion-card>
     </ion-col>
    </ion-row>

@@ -1,10 +1,10 @@
 <ion-header>
-  <ion-toolbar style="--background:#180B4F;">
+  <ion-toolbar style="--background:var(--ion-color-primary);">
     <ion-title class="titulo">
-      Usuario
+      Cuenta
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="onClick()" style="--color:white;">
+      <ion-button  style="--color:var(--ion-color-tertiary-contrast);">
         <ion-icon name="settings-outline" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -20,8 +20,8 @@
             <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
           </ion-avatar>
           <ion-label>
-            <h1>Steven Lopez</h1>
-            <h4>steven@gmail.com</h4>
+            <h3>{{dataUser.nameUser}}</h3>
+            <h4>{{dataUser.emailUser}}</h4>
           </ion-label>
         </ion-item>
       </ion-col>
@@ -32,9 +32,25 @@
         <!-- <ion-button>See All</ion-button> -->
       </ion-list-header>
       <ion-item (click)="logOut()">
-        <ion-icon style="margin:5px;" name="lock-closed-outline"></ion-icon>
+        <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
         <ion-label>Cerrar sesión</ion-label>
       </ion-item>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <h2>Personalización.</h2>
+        <!-- <ion-button>See All</ion-button> -->
+      </ion-list-header>
+      <ion-item (click)="changeTheme()" [disabled]="takeFroSystem">
+        <ion-icon slot="start" name="contrast-outline"></ion-icon>
+        <ion-label>Cambiar tema</ion-label>
+        <ion-toggle mode="ios" slot="end" [ngModel]="darkMode"></ion-toggle>
+      </ion-item>
+      <!-- <ion-item (click)="changeThemefromSystem()" *ngIf="isAvailable">
+        <ion-icon slot="start" name="color-fill-outline"></ion-icon>
+        <ion-label>Tomar tema del sistema.</ion-label>
+        <ion-checkbox [ngModel]="takeFroSystem"></ion-checkbox>
+      </ion-item> -->
     </ion-list>
   </ion-grid>
 

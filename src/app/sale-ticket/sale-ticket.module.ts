@@ -14,7 +14,7 @@ import { SaleTicketPage } from './sale-ticket.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    SaleTicketPageRoutingModule
+    SaleTicketPageRoutingModule,
   ],
   declarations: [SaleTicketPage]
 })

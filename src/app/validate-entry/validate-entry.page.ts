@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 import { ToastController, Platform } from '@ionic/angular';
 import { EventService } from '../../services/event-service.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-validate-entry',
   templateUrl: './validate-entry.page.html',
   styleUrls: ['./validate-entry.page.scss'],
 })
-export class ValidateEntryPage implements OnInit, OnDestroy {
+export class ValidateEntryPage implements OnInit {
   scanSub: Subscription;
   light: boolean = false;
   camera:number=0;
@@ -20,30 +21,40 @@ export class ValidateEntryPage implements OnInit, OnDestroy {
     private platform: Platform,
     private activatedRoute:ActivatedRoute) {
   }
-  async ngOnInit() {
+   ngOnInit() {
     this.activatedRoute.data.subscribe(data=>{
       this.camera=data['camera'];
       this.light=data['light'];
     })
     this.setBox();
+    
+  }
+  async ionViewDidEnter(){
     await this.scanQR()
   }
-
-  ngOnDestroy() {
+  ionViewWillLeave(){
     this.scanSub.unsubscribe();
   }
 
   async scanQR() {
     await this.qrScanner.show();
 
-    this.scanSub = this.qrScanner.scan().subscribe(async (tokenEntry: string) => {
-      this.validateEntry(tokenEntry);
+    this.scanSub = this.qrScanner.scan().subscribe(async (resultScan: string) => {
+      this.validateEntry(resultScan);
       this.scanSub.unsubscribe();
     });
 
   }
   validateEntry(text) {
-    this.eventService.validateEntry(text).pipe(catchError(async err => { return await this.toast(err['error']['message']) }), finalize(() => {
+    this.eventService.validateEntry(text).pipe(catchError(async (err) => { 
+      if(err instanceof HttpErrorResponse && (err.status ==400 || err.status ==500)){
+        return await this.toast(err['error']['message']);
+      }
+      else{
+        return await this.toast('Ocurrió un error.')
+      }
+      
+    }), finalize(() => {
       this.scanQR();
     })).subscribe(async (res) => {
       await this.toast(res['message']);

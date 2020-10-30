@@ -1,6 +1,6 @@
 .tabsBar{
-    --background:#3B2E80;
-    --color-selected:#35A0B7;
+    --background:var(--ion-color-primary-shade);
+    --color-selected:var(--ion-color-primary-tint);
     --color:#7C75A7;
     
 }
@@ -21,6 +21,6 @@ ion-icon{
         left: 0;
         right: 0;
         margin: auto;
-        box-shadow: 0 0 20px 8px #35A0B7;
+        box-shadow: 0 0 20px 8px var(--ion-color-primary-tint);
     }
 }

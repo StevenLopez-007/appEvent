@@ -4,27 +4,27 @@
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
-  --ion-color-primary: #3C297E;
+  --ion-color-primary: #F8F9F9;
   --ion-color-primary-rgb: 60, 41, 126;
   --ion-color-primary-contrast: #180B4F;
   --ion-color-primary-contrast-rgb: 24, 11, 79;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #ffffff;
+  --ion-color-primary-tint: #9094EB;
 
   /** secondary **/
-  --ion-color-secondary: #3dc2ff;
+  --ion-color-secondary: #F8F8FF;
   --ion-color-secondary-rgb: 61, 194, 255;
-  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast: #7C75A7;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
   --ion-color-secondary-shade: #36abe0;
-  --ion-color-secondary-tint: #50c8ff;
+  --ion-color-secondary-tint: #ffffff;
 
   /** tertiary **/
-  --ion-color-tertiary: #5260ff;
+  --ion-color-tertiary: #ffffff;
   --ion-color-tertiary-rgb: 82, 96, 255;
-  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast: #000000;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #4854e0;
+  --ion-color-tertiary-shade: #b4b8b9;
   --ion-color-tertiary-tint: #6370ff;
 
   /** success **/
@@ -76,6 +76,13 @@
   --ion-color-light-tint: #f5f6f9;
 
   //**Personales **/
+
+  --ion-color-buttom:#7C75A7;
+  --ion-color-text-buttom:#fff;
+  --ion-chip-color:#DADBDB;
+  --ion-chip-text-color:#8828e1;
+  
+
 --colorPrimario:#4D3BAC;
  --colorSecundario:#33CCCC;
  --colorTerceario:#3C297E;
@@ -83,34 +90,33 @@
  --colorQuinto:#fe637b;
 }
 
-@media (prefers-color-scheme: dark) {
+
   /*
    * Dark Colors
    * -------------------------------------------
    */
-
-  body {
-    --ion-color-primary: #428cff;
+  body.dark {
+    --ion-color-primary: #180B4F;
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
-    --ion-color-primary-shade: #3a7be0;
-    --ion-color-primary-tint: #5598ff;
+    --ion-color-primary-shade: #3B2E80;
+    --ion-color-primary-tint: #35A0B7;
 
-    --ion-color-secondary: #50c8ff;
+    --ion-color-secondary: #2A1972;
     --ion-color-secondary-rgb: 80,200,255;
-    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast: #4D3BAC;
     --ion-color-secondary-contrast-rgb: 255,255,255;
     --ion-color-secondary-shade: #46b0e0;
-    --ion-color-secondary-tint: #62ceff;
+    --ion-color-secondary-tint: #ffffff;
 
-    --ion-color-tertiary: #6a64ff;
+    --ion-color-tertiary: #3C297E;
     --ion-color-tertiary-rgb: 106,100,255;
     --ion-color-tertiary-contrast: #ffffff;
     --ion-color-tertiary-contrast-rgb: 255,255,255;
-    --ion-color-tertiary-shade: #5d58e0;
+    --ion-color-tertiary-shade: #614DCA;
     --ion-color-tertiary-tint: #7974ff;
-
+    
     --ion-color-success: #2fdf75;
     --ion-color-success-rgb: 47,223,117;
     --ion-color-success-contrast: #000000;
@@ -152,14 +158,18 @@
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
-  }
+  
+    --ion-color-buttom:#33CCCC;
+    --ion-color-text-buttom:#fff;
+    --ion-chip-color:#32226d;
 
+    --ion-chip-text-color:initial;
   /*
    * iOS Dark Theme
    * -------------------------------------------
    */
 
-  .ios body {
+  .ios body.dark {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0,0,0;
 
@@ -197,7 +207,7 @@
    * -------------------------------------------
    */
 
-  .md body {
+  .md body.dark {
     --ion-background-color: #121212;
     --ion-background-color-rgb: 18,18,18;
 

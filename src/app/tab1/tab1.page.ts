@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../../services/event-service.service';
 import { Ievent } from '../../model/ievent';
 import { Observable } from 'rxjs';
-import {ModalController, PopoverController } from '@ionic/angular';
+import {ModalController, PopoverController,AnimationController } from '@ionic/angular';
 import { OptionsEventComponent } from '../options-event/options-event.component';
 import { VerColaboradoresPage } from '../ver-colaboradores/ver-colaboradores.page';
 import { SaleTicketPage } from '../sale-ticket/sale-ticket.page';
 import { SalesPage } from '../sales/sales.page';
+import { AnimationModal1 } from '../animations/modalAnimation1';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  styleUrls: ['tab1.page.scss'],
+  providers:[AnimationModal1]
 })
 export class Tab1Page implements OnInit{
   events:Observable<Ievent[]>;
@@ -21,7 +23,8 @@ export class Tab1Page implements OnInit{
     spaceBetween:-85,
   };
 
-  constructor(private eventService:EventService,private modalController: ModalController,private popoverController: PopoverController) {}
+  constructor(private eventService:EventService,private modalController: ModalController,private popoverController: PopoverController,
+              private animationCrtl:AnimationController,private animationModal1:AnimationModal1) {}
   ngOnInit(){
    this.getEvents();
   } 
@@ -55,14 +58,20 @@ export class Tab1Page implements OnInit{
     });
     return await modal.present();
   }
-  async saleTicket(idEvent){
-    const modal = this.modalController.create({
+  async saleTicket(idEvent,nombre){
+    const modal = await this.modalController.create({
       component:SaleTicketPage,
+      cssClass:'modalSaleTicket',
       componentProps:{
-        'idEvent':idEvent
-      }
+        'idEvent':idEvent,
+        'nameEvent':nombre,
+      },
+      mode:'md',
+      backdropDismiss:false,
+      enterAnimation:this.animationModal1.enterAnimation,
+      leaveAnimation:this.animationModal1.leaveAnimation
     })
-    return await (await modal).present();
+    await modal.present();
   }
   async optionsEvents(id:number,cols:Array<any>,nombre:string,event:Object,ev:any){ 
     const popover = await this.popoverController.create({
@@ -78,7 +87,7 @@ export class Tab1Page implements OnInit{
      data === undefined? data =0:null;
      switch(data['option']){
        case 1:{
-          this.saleTicket(id);
+          this.saleTicket(id,nombre);
          break;
         }
       case 2:{

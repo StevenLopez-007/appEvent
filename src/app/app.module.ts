@@ -15,17 +15,25 @@ import { CommonModule } from '@angular/common';
 
 import {IonicStorageModule} from '@ionic/storage';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-import {Network} from '@ionic-native/network/ngx'
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import {Network} from '@ionic-native/network/ngx';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
+import { HeaderColor } from '@ionic-native/header-color/ngx';
+import {ThemeDetection} from '@ionic-native/theme-detection/ngx'
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, CommonModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot()],
+  imports: [BrowserModule,CommonModule,HttpClientModule, IonicModule.forRoot(), AppRoutingModule,IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
     QRScanner,
+    Base64ToGallery,
+    Diagnostic,
+    ThemeDetection,
     Network,
+    HeaderColor,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}

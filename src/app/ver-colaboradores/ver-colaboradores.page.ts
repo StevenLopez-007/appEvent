@@ -1,7 +1,7 @@
-import { Component, OnInit, Input,ViewChild} from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ModalController, LoadingController, IonRefresher, ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth/auth.service';
-import {finalize} from 'rxjs/operators'
+import { finalize } from 'rxjs/operators'
 import { EventService } from '../../services/event-service.service';
 import { AdminColsPage } from '../admin-cols/admin-cols.page';
 import { ErrorEmailsPage } from '../error-emails/error-emails.page';
@@ -11,130 +11,134 @@ import { ErrorEmailsPage } from '../error-emails/error-emails.page';
   styleUrls: ['./ver-colaboradores.page.scss'],
 })
 export class VerColaboradoresPage implements OnInit {
-@Input() colaboradores:Array<any>=[];
-@Input() nameEvent:string;
-@Input() event:Object;
-@ViewChild('refreshCols') ionRefresher:IonRefresher;
-  mailCol:string='';
-  colaborador:Array<any>=[];
-  colaboradoresAdd:Array<any>=[];
-  buscando:boolean=false;
-  colors:Array<string>=['#FFA868','#8A80F6','#F75A83','#9c27b0','#5e35b1'];
+  @Input() colaboradores: Array<any> = [];
+  @Input() nameEvent: string;
+  @Input() event: Object;
+  @ViewChild('refreshCols') ionRefresher: IonRefresher;
+  mailCol: string = '';
+  colaborador: Array<any> = [];
+  colaboradoresAdd: Array<any> = [];
+  buscando: boolean = false;
+  colors: Array<string> = ['#FFA868', '#8A80F6', '#F75A83', '#9c27b0', '#5e35b1'];
   constructor(private modalController: ModalController,
-    private authService:AuthService,
-    private eventService:EventService,
+    private authService: AuthService,
+    private eventService: EventService,
     private loadingController: LoadingController,
     private toastController: ToastController) { }
 
   ngOnInit() {
     this.getCols();
   }
-  async closeModal(){
-   await this.modalController.dismiss()
+  async closeModal() {
+    await this.modalController.dismiss()
   }
 
-  limpiar(){
-    this.colaborador=[];
+  limpiar() {
+    this.colaborador = [];
     this.mailCol = '';
-    this.colaboradoresAdd=[];
+    this.colaboradoresAdd = [];
   }
 
-  async findUserByCorreo(){
-    this.buscando=true
-    if(this.colaboradoresAdd.some(col=>{return col['correo'].trim()==this.mailCol.trim()})){
-     await  this.presentToast('Ya agregaste a este usuario.');
-     this.mailCol='';
-     this.buscando=false;
-    }
-    else if(this.colaboradores.some(col=>{return col['correo'].trim()==this.mailCol.trim()})){
-      await  this.presentToast('Este usuario ya es colaborador.');
-      this.mailCol='';
-      this.buscando=false;
-    }
-    else{
-      await this.presentLoading()
-      this.authService.finUserByCorreo(this.mailCol.trim()).pipe(finalize(async()=>{
-        this.buscando=false
-        this.mailCol='';
-        await this.loadingController.dismiss();
-      })).subscribe(res=>{
-        this.colaborador = res['user']
-      })
+  async findUserByCorreo() {
+    if (/([a-zA-Z0-9_\.\-])+\@([a-z-0-9\-]+\.)+([a-zA-Z0-9]{2,4})+$/.test(this.mailCol.trim())) {
+      this.buscando = true
+      if (this.colaboradoresAdd.some(col => { return col['correo'].trim() == this.mailCol.trim() })) {
+        await this.presentToast('Ya agregaste a este usuario.');
+        this.mailCol = '';
+        this.buscando = false;
+      }
+      else if (this.colaboradores.some(col => { return col['correo'].trim() == this.mailCol.trim() })) {
+        await this.presentToast('Este usuario ya es colaborador.');
+        this.mailCol = '';
+        this.buscando = false;
+      }
+      else {
+        await this.presentLoading()
+        this.authService.finUserByCorreo(this.mailCol.trim()).pipe(finalize(async () => {
+          this.buscando = false
+          this.mailCol = '';
+          await this.loadingController.dismiss();
+        })).subscribe(res => {
+          this.colaborador = res['user']
+        })
+      }
+    } else {
+      this.presentToast('Ingrese un correo válido.')
     }
   }
 
-  sendInvitation(){
+  sendInvitation() {
     this.presentLoading();
-    this.eventService.sendInvitation(this.colaboradoresAdd,this.event).pipe(finalize(async ()=>{
+    this.eventService.sendInvitation(this.colaboradoresAdd, this.event).pipe(finalize(async () => {
       await this.loadingController.dismiss();
       this.limpiar();
-    })).subscribe(async (result)=>{
-      if(result.status===200){
-        if(result['body']['falidedEmails'].length>0){
+    })).subscribe(async (result) => {
+      if (result.status === 200) {
+        if (result['body']['falidedEmails'].length > 0) {
           await this.modalEmailsErrors(result['body']['falidedEmails']);
         }
-        else{
+        else {
           this.presentToast('Invitacion/es enviadas.')
         }
       }
-    },error=>{
+    }, error => {
       console.log(error)
     })
   }
-  getCols(){
-    this.eventService.getCols(this.event['_id']).pipe(finalize(async ()=>{
+  getCols() {
+    this.eventService.getCols(this.event['_id']).pipe(finalize(async () => {
       await this.ionRefresher.complete();
-    })).subscribe(result=>{
+    })).subscribe(result => {
       this.colaboradores = result['colaboradores']
     })
   }
 
-  deleteCol(index:number){
-    this.colaboradoresAdd.splice(index,1);
+  deleteCol(index: number) {
+    this.colaboradoresAdd.splice(index, 1);
   }
-  addColaborador(col:Object){
+  addColaborador(col: Object) {
     this.colaboradoresAdd.push(col);
-    this.colaborador=[];
+    this.colaborador = [];
   }
 
-  async presentLoading(){
+  async presentLoading() {
     const loading = this.loadingController.create({
-      cssClass:`loadingClass`,
-      message:'Por favor, espere...',
-      translucent:true,
-      spinner:'crescent'
+      cssClass: `loadingClass`,
+      message: 'Por favor, espere...',
+      translucent: true,
+      spinner: 'crescent'
     })
 
     await (await loading).present();
   }
 
-  async viewCols(){
+  async viewCols() {
     const modal = await this.modalController.create({
-      component:AdminColsPage,
-      componentProps:{
-        'colaboradores':this.colaboradores,
-        'event':this.event
+      component: AdminColsPage,
+      componentProps: {
+        'colaboradores': this.colaboradores,
+        'event': this.event
       }
     })
 
     await modal.present();
   }
 
-  async presentToast(message:string){
+  async presentToast(message: string) {
     const toast = await this.toastController.create({
-      duration:3000,
-      message:message,
-      cssClass:'toastClass'
+      duration: 3000,
+      message: message,
+      cssClass: 'toastClass'
     });
 
     await toast.present();
   }
 
-  async modalEmailsErrors(failedEmail){
+  async modalEmailsErrors(failedEmail) {
     const modal = await this.modalController.create({
-      component:ErrorEmailsPage,
-      componentProps:{
-        'falidedEmails':failedEmail
+      component: ErrorEmailsPage,
+      componentProps: {
+        'falidedEmails': failedEmail
       }
     });
 

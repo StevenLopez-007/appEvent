@@ -1,8 +1,8 @@
 ion-item{
     --background:transparent;
 }
-ion-item ion-label h1{
-    color:white;
+ion-item ion-label h3{
+    color:var(--ion-color-tertiary-contrast);
     font-family: Comforta-Bold;
 }
 ion-item ion-label h4{
@@ -14,12 +14,12 @@ ion-list{
 }
 
 ion-list ion-list-header{
-    color: white;
+    color: var(--ion-color-tertiary-contrast);
     font-family: Comforta-Bold;
 }
 ion-list ion-icon{
-    color:var(--colorSecundario);
+    color:var(--ion-color-buttom);
 }
 ion-list ion-label{
-    --color:white;
+    --color:var(--ion-color-tertiary-contrast);
 }

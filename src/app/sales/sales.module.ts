@@ -8,14 +8,15 @@ import { SalesPageRoutingModule } from './sales-routing.module';
 
 import { SalesPage } from './sales.page';
 import { FilterSalesPipe } from '../pipes/filter-sales.pipe';
+import {ScrollHideDirective} from '../../app/scrollHide.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SalesPageRoutingModule
+    SalesPageRoutingModule,
   ],
-  declarations: [SalesPage,FilterSalesPipe],
+  declarations: [SalesPage,FilterSalesPipe,ScrollHideDirective],
 })
 export class SalesPageModule {}

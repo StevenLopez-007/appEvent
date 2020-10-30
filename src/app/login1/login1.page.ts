@@ -13,7 +13,7 @@ export class Login1Page implements OnInit {
   ionicForm:FormGroup;
   isSubmitted =false;
   constructor(private authService:AuthService,public formBuilder:FormBuilder,private statusBar:StatusBar,
-              private splashScreen:SplashScreen) { }
+              private splashScreen:SplashScreen,) { }
   datosUser ={};
   register:boolean = false;
   showPassword:boolean=false;
@@ -24,12 +24,22 @@ export class Login1Page implements OnInit {
       password:['',[Validators.required,Validators.minLength(6)]]
     });
   }
+  ionViewWillEnter(){
+    document.getElementsByTagName("body")[0].style.backgroundColor="#3d3d3d";
+  }
   ionViewDidEnter(){
     this.splashScreen.hide();
-    this.statusBar.backgroundColorByHexString('#fe637b');
+    this.statusBar.overlaysWebView(true);
+    this.statusBar.backgroundColorByHexString('');
+  }
+
+  async onKey(){
+    await this.submitForm();
   }
   async login(datosUser:any){
-    await this.authService.login(datosUser);
+    if(await this.authService.login(datosUser)){
+      this.ionicForm.reset();
+    };
   } 
   async registerUser(datosUser:any){
     await this.authService.register(datosUser);
@@ -41,8 +51,6 @@ export class Login1Page implements OnInit {
     this.isSubmitted = true;
     if(!this.register){ this.ionicForm.get('nombre').disable();}
     if(!this.ionicForm.valid){
-      // console.log(this.ionicForm.controls)
-      // console.log("Por favor, cumpla con todos los requisitos");
       this.authService.toastLogin('Por favor, cumpla con todos los requisitos','toastClass');
       
     }
@@ -57,7 +65,6 @@ export class Login1Page implements OnInit {
       
     }
     this.ionicForm.get('nombre').enable();
-    this.ionicForm.reset();
     
   }
 

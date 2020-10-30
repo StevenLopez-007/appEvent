@@ -1,39 +1,51 @@
+<ion-header class="ion-no-border" style="position: sticky;top:0px;" #headerSale>
+  <ion-toolbar style="--background:var(--ion-color-primary);height:50px;">
+    <!-- <ion-buttons slot="start">
+    <ion-button (click)="closeModal({animation:'no'})" style="--color:var(--ion-color-tertiary-contrast);">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons> -->
+  <ion-icon id="iconSwipe" name="remove-outline"></ion-icon>
+  <ion-buttons slot="end" style="margin-top: 15px;">
+    <ion-button (click)="sale()" style="--color:var(--ion-color-tertiary-contrast);">
+      <ion-icon slot="icon-only" name="checkmark-outline"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+    <ion-title class="titulo" style="font-size:18px;margin-top: 15px;">{{nameEvent}}</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <ion-header>
-    <ion-toolbar style="--background:#180B4F;">
-      <ion-buttons slot="start">
-      <ion-button (click)="closeModal()" style="--color:white;">
-        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-      <ion-title class="titulo">Taquilla</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-grid fixed class="ion-padding" class="formDatosEvent">
+  <ion-grid fixed class="ion-padding" class="formDatosEvent" style="overflow: unset;">
     <ion-row>
-      <ion-label class="titulo ion-margin">Datos del cliente (obligatorios)</ion-label>
-      <form [formGroup]="taquillaForm" novalidate (ngSubmit)="sale()" style="width: 100%;">
+      <ion-label class="titulo ion-margin">Datos del cliente.</ion-label>
+      <form [formGroup]="taquillaForm" novalidate style="width: 100%;">
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Nombre
+          <ion-label position="floating">Nombre*
             {{enviado && errrosForm.name.errors?.required?'| Requerido':
               enviado && errrosForm.name.errors?.minlength?'| Minimo 1 caracter de largo':
               enviado && errrosForm.name.errors?.maxlength?'| Máximo 64 caracter de largo':''
             }}
           </ion-label>
-          <ion-input formControlName="name" required [maxlength]="64" clear-input style="--color:white;"></ion-input>
+          <ion-input formControlName="name" required [maxlength]="64" clear-input style="--color:var(--ion-color-tertiary-contrast);"></ion-input>
         </ion-item>
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
           <ion-label position="floating">E-mail
-            {{enviado && errrosForm.email.errors?.required?'| Requerido':
+            {{
               enviado && errrosForm.email.errors?.pattern?'| Inválido':''
             }}
           </ion-label>
-          <ion-input formControlName="email" required [maxlength]="64" clear-input style="--color:white;"></ion-input>
+          <ion-input type="email" formControlName="email" [maxlength]="64" clear-input style="--color:var(--ion-color-tertiary-contrast);"></ion-input>
         </ion-item>
+      </ion-col>
+      <ion-col size="12">
+          <ion-item lines="none">
+            <ion-label>Descargar Codigo QR</ion-label>
+            <ion-checkbox #checkbox [ngModelOptions]="{standalone: true}" (ionChange)="dialog($event)" [(ngModel)]="downloadQR" slot="end" mode="ios" style="--checkmark-color: #fe637b;--checkmark-width: 2.5px;--background: transparent;
+            --border-color: transparent;"></ion-checkbox>
+          </ion-item>
       </ion-col>
       <!-- <ion-col size="12">
         <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
@@ -48,7 +60,7 @@
       <!-- <ion-button type="submit" style="--color:white; --background:#33CCCC; font-family:Comforta-Light;" expand="block" fill="solid" shape="round">
         Vender
       </ion-button> -->
-      <button type="submit" class="fab-button"><ion-icon name="add"></ion-icon></button>
+      <!-- <button type="submit" class="fab-button"><ion-icon name="add" style="color: var(--ion-color-text-buttom);"></ion-icon></button> -->
     </form>
     </ion-row>
   </ion-grid>
