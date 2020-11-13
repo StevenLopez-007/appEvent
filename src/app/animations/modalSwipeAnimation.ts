@@ -25,6 +25,7 @@ export class SwipeCloseModal {
       onMove: (ev) => { this.onMove(ev); },
       onEnd: (ev) => { this.onEnd(ev); }
     });
+    console.log('gesto activado')
     this.gesture.enable(true);
   }
 

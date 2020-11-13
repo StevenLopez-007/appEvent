@@ -1,0 +1,27 @@
+#iconSwipe {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    font-size: 26px;
+    color:var(--ion-color-tertiary-shade)
+  }
+  ion-list ion-list-header{
+    color: var(--ion-color-tertiary-contrast);
+    font-family: Comforta-Bold;
+  }
+
+  ion-item ion-label{
+    color:var(--ion-color-tertiary-contrast);
+    font-family: Comforta-Bold;
+}
+  ion-list ion-icon{
+    color:var(--ion-color-buttom);
+}
+ion-item{
+  --background:transparent;
+}
+ion-list{
+  background-color: transparent;
+}

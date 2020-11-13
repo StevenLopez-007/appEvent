@@ -60,6 +60,18 @@ const routes: Routes = [
     path: 'options-sale',
     loadChildren: () => import('./options-sale/options-sale.module').then( m => m.OptionsSalePageModule)
   },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
+  },
+  {
+    path: 'user-settings',
+    loadChildren: () => import('./user-settings/user-settings.module').then( m => m.UserSettingsPageModule)
+  },
+  {
+    path: 'options-profile-photo',
+    loadChildren: () => import('./options-profile-photo/options-profile-photo.module').then( m => m.OptionsProfilePhotoPageModule)
+  },
 ];
 @NgModule({
   imports: [

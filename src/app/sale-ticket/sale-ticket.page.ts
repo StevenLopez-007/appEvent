@@ -9,11 +9,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {SwipeCloseModal} from '../animations/modalSwipeAnimation';
 import {Keyboard} from '@ionic-native/keyboard/ngx';
 import { AnimationAlert1 } from '../animations/alertAnimation1';
+import { CheckPermissions} from '../../services/checkPermissions';
 @Component({
   selector: 'app-sale-ticket',
   templateUrl: './sale-ticket.page.html',
   styleUrls: ['./sale-ticket.page.scss'],
-  providers:[SwipeCloseModal,Keyboard,AnimationAlert1]
+  providers:[SwipeCloseModal,Keyboard,AnimationAlert1,CheckPermissions]
 })
 export class SaleTicketPage implements OnInit {
   @Input() idEvent: string;
@@ -41,7 +42,8 @@ export class SaleTicketPage implements OnInit {
     private diagnostic: Diagnostic,
     private swipeCloseModal:SwipeCloseModal,
     private keyboard:Keyboard,
-    private animationAlert1:AnimationAlert1) {
+    private animationAlert1:AnimationAlert1,
+    private checkPermissions:CheckPermissions) {
      }
 
   ngOnInit() {
@@ -130,26 +132,32 @@ export class SaleTicketPage implements OnInit {
     toast.present();
   }
 
-  dialog(event: any) {
+  async dialog(event: any) {
     if (event['detail']['checked']) {
-      this.diagnostic.requestRuntimePermission(this.diagnostic.permission.WRITE_EXTERNAL_STORAGE).then(async (status) => {
-        if (this.diagnostic.permissionStatus.GRANTED == status) {
-          // await this.presentAlert();
-        }
-        else if (this.diagnostic.permissionStatus.DENIED_ALWAYS == status) {
-          this.downloadQR = false;
-          this.checkbox.checked = false;
-          await this.AlertOpenSettingStorage();
-        }
-        else {
-          this.downloadQR = false;
-          await this.Toast('Se necesitan permisos para usar esta función.')
-        }
-      }).catch((e) => {
+      // this.diagnostic.requestRuntimePermission(this.diagnostic.permission.WRITE_EXTERNAL_STORAGE).then(async (status) => {
+      //   if (this.diagnostic.permissionStatus.GRANTED == status) {
+      //     // await this.presentAlert();
+      //   }
+      //   else if (this.diagnostic.permissionStatus.DENIED_ALWAYS == status) {
+      //     this.downloadQR = false;
+      //     this.checkbox.checked = false;
+      //     await this.AlertOpenSettingStorage();
+      //   }
+      //   else {
+      //     this.downloadQR = false;
+      //     await this.Toast('Se necesitan permisos para usar esta función.')
+      //   }
+      // }).catch((e) => {
+      //   this.downloadQR = false;
+      //   this.checkbox.checked = false;
+      //   this.Toast('Ocurrió un error al activar esta función');
+      // })
+
+      if(!(await this.checkPermissions.checkPermissions())){
         this.downloadQR = false;
         this.checkbox.checked = false;
-        this.Toast('Ocurrió un error al activar esta función');
-      })
+      }
+
 
     }
   }

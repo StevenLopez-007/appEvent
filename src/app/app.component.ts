@@ -4,7 +4,8 @@ import { Platform, ToastController } from '@ionic/angular';
 import { Network } from '@ionic-native/network/ngx';
 import { Router } from '@angular/router';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from 'src/services/auth/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent {
     private router: Router,
     private toastController: ToastController,
     private headerColor: HeaderColor,
-    // private authService: AuthService,
+    private authService: AuthService,
     // private screenOrientacion:ScreenOrientation
   ) {
     this.initializeApp();
@@ -29,7 +30,7 @@ export class AppComponent {
 
   async initializeApp() {
     await this.platform.ready();
-    // await this.authService.checkDarkTheme();
+    await this.authService.checkDarkTheme();
     this.headerColor.tint("#180B4F");
     this.network.onDisconnect().subscribe(async () => {
       await this.toastPresent('Desconectado', 'toastClassOffline');

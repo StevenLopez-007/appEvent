@@ -18,7 +18,7 @@
 <ion-content #pageContent class="hideScrollContent">
   <div style="padding-top: 112px;">
   <ion-refresher #refreshSales slot="fixed" (ionRefresh)="getSales()" style="z-index: 100;">
-    <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando..."></ion-refresher-content>
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando..."></ion-refresher-content>
   </ion-refresher>
   <ion-select style="display: none;" [(ngModel)]="searchBy" okText="Aceptar" cancel-text="Cancelar" #selectFilter
     [interfaceOptions]="optionsSelectPopover" value="nameClient">

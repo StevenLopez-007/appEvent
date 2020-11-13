@@ -1,0 +1,21 @@
+<ion-content style="--background:var(--ion-color-primary)">
+  <ion-list>
+    
+    <ion-list-header>
+      <h5>Foto de perfil.</h5>
+    </ion-list-header>
+  
+    <ion-item lines="none" (click)="closeModal(1)">
+      <ion-icon slot="start" name="camera"></ion-icon>
+      <ion-label>Tomar foto.</ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closeModal(2)">
+      <ion-icon slot="start" name="image"></ion-icon>
+      <ion-label>Galería.</ion-label>
+    </ion-item>
+    <ion-item lines="none" (click)="closeModal(3)">
+      <ion-icon slot="start" name="trash"></ion-icon>
+      <ion-label>Borrar foto.</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

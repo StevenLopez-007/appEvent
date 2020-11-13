@@ -19,9 +19,6 @@ export class ScrollHideDirective {
     private animationCtrl: AnimationController) {
   }
 
-  createAnimation(){
-  }
-
   ngOnChanges(changes: SimpleChanges) {
     if (this.scrollContent && this.config) {
       this.scrollContent.scrollEvents = true;

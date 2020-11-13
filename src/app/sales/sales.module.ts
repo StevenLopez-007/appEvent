@@ -8,7 +8,7 @@ import { SalesPageRoutingModule } from './sales-routing.module';
 
 import { SalesPage } from './sales.page';
 import { FilterSalesPipe } from '../pipes/filter-sales.pipe';
-import {ScrollHideDirective} from '../../app/scrollHide.module';
+import {ScrollHideDirective} from '../directives/scrollHide.module';
 
 @NgModule({
   imports: [

@@ -19,6 +19,7 @@ export class VerColaboradoresPage implements OnInit {
   colaborador: Array<any> = [];
   colaboradoresAdd: Array<any> = [];
   buscando: boolean = false;
+  photoAdmin:string=window.localStorage.getItem('photo')
   colors: Array<string> = ['#FFA868', '#8A80F6', '#F75A83', '#9c27b0', '#5e35b1'];
   constructor(private modalController: ModalController,
     private authService: AuthService,

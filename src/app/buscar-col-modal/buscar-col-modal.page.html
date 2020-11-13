@@ -25,7 +25,7 @@
         <ion-card class="proximosEventos" style="margin:0;" (click)="addCol(col)">
           <ion-item lines="none">
             <ion-avatar class="ion-margin">
-              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              <img [src]="col.photoProfile">
             </ion-avatar>
             <div>
               <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
@@ -41,7 +41,7 @@
         <ion-card class="proximosEventos" style="margin:0;">
           <ion-item lines="none">
             <ion-avatar class="ion-margin">
-              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              <img [src]="col.photoProfile">
             </ion-avatar>
             <div>
               <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>

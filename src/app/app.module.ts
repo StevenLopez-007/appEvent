@@ -19,7 +19,12 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import {Network} from '@ionic-native/network/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { HeaderColor } from '@ionic-native/header-color/ngx';
-import {ThemeDetection} from '@ionic-native/theme-detection/ngx'
+import {ThemeDetection} from '@ionic-native/theme-detection/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import {File} from '@ionic-native/file/ngx';
+import {Camera} from '@ionic-native/camera/ngx'
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,9 +38,14 @@ import {ThemeDetection} from '@ionic-native/theme-detection/ngx'
     Diagnostic,
     ThemeDetection,
     Network,
+    Crop,
+    File,
+    ImagePicker,
+    Camera,
     HeaderColor,
+    GooglePlus,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    {provide:'API_BASE_URL',useValue:'https://apievent2020.herokuapp.com/'},
+    {provide:'API_BASE_URL',useValue:' https://apievent2020.herokuapp.com/'},
     {provide:HTTP_INTERCEPTORS,useClass:TokenInterceptor,multi:true}
   ],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
-<ion-content [fullscreen]="true">
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content refreshingSpinner="bubbles" refreshingText="Actualizando...">
+<ion-content  [fullscreen]="true" [refreshCtrl]="refresher">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="getEvents()">
+    <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando...">
     </ion-refresher-content>
   </ion-refresher>
   <!-- <ion-header collapse="condense">

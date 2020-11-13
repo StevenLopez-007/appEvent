@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../services/auth/auth.service'
+import { UserSettingsPage } from '../user-settings/user-settings.page';
 
 @Component({
   selector: 'app-tab3',
@@ -13,7 +15,7 @@ export class Tab3Page implements OnInit {
   darkModeSystem: boolean;
   takeFroSystem: boolean;
   isAvailable:boolean;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private modalController: ModalController) {
 
     const darkMode = this.authService.getDarkMode();
     this.authService.availableDarkThemeSystem().then((res)=>{
@@ -39,13 +41,13 @@ export class Tab3Page implements OnInit {
   ionViewWillEnter() {
     this.dataUser = {
       nameUser: window.localStorage.getItem('nameUser'),
-      emailUser: window.localStorage.getItem('emailUser')
+      emailUser: window.localStorage.getItem('emailUser'),
+      photo:window.localStorage.getItem('photo')
     }
   }
-  logOut() {
-    this.authService.logOut();
+  async logOut() {
+    await this.authService.logOut();
   }
-
   changeTheme() {
     this.darkMode = !this.darkMode;
     this.authService.darkMode(this.darkMode);
@@ -65,5 +67,16 @@ export class Tab3Page implements OnInit {
       await this.authService.checkDarkTheme();
     }
     this.authService.setStatusBarColor();
+  }
+
+  async openConfiguration(){
+    const modal = await this.modalController.create({
+      component:UserSettingsPage,
+      componentProps:{
+        dataUser:this.dataUser
+      },
+    });
+
+    await modal.present();
   }
 }

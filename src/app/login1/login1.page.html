@@ -10,17 +10,20 @@
         </ion-col>
       </ion-row>
       <ion-row>        
-        <ion-col size="5">
+        <ion-col size="12">
           <ion-segment [value]="register?1:0" class="segments">
-            <ion-segment-button value="0" (click)="register=false">
+            <ion-segment-button value="0" (click)="register=false;social=false;">
               <ion-label>Login</ion-label>
             </ion-segment-button>
-            <ion-segment-button value="1" (click)="register=true">
+            <ion-segment-button value="1" (click)="register=true;social=false;">
               <ion-label>Registrarse</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="2" (click)="social=true; register=false">
+              <ion-label>Social</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-col>
-        <form [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="width: 100%;">
+        <form *ngIf="!social" [formGroup]="ionicForm" (ngSubmit)="submitForm()" novalidate style="width: 100%;">
         <ion-col size="12" style="margin-top: 15px;" *ngIf="register">
           <ion-item lines="none">
             <ion-label position="floating" style="color:#F84E69 !important; font-family: Comforta-Light;">
@@ -57,7 +60,7 @@
           </ion-item>
         </ion-col>
         <ion-col *ngIf="!register" size="12" class="ion-justify-content-end" style="display: flex;">
-          <ion-label class="ion-text-end" style="color:#fe637b;margin-bottom: 15px; font-size: 14px; font-family: Comforta-Light;">Olvide mi
+          <ion-label (click)="modalForgotPassword()" class="ion-text-end" style="color:#fe637b;margin-bottom: 15px; font-size: 14px; font-family: Comforta-Light;">Olvide mi
             contraseña</ion-label>
         </ion-col>
         <ion-col size="12">
@@ -66,6 +69,11 @@
           </ion-button>
         </ion-col>
       </form>
+      <ion-col size="12" *ngIf="social" style="display: flex; margin-top:10px" class="ion-justify-content-center">
+          <button class="buttonGoogle" (click)="loginWithGoogle()" expand="block" shape="round">
+            <ion-icon name="logo-google"></ion-icon> Continuar con Google
+          </button>
+      </ion-col>
       </ion-row>
     </ion-grid>
   </div>

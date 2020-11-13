@@ -39,7 +39,7 @@
 
           <ion-item lines="none">
             <ion-avatar class="ion-margin">
-              <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+              <img [src]="col.photoProfile">
             </ion-avatar>
             <div>
               <ion-card-title class="ion-text-left">{{col.nombre}}</ion-card-title>
@@ -54,16 +54,19 @@
   <div class="colsAgregados" *ngIf="colaboradores?.length>0">
     <h6>Colaboradores</h6>
     <div class="ion-align-items-center" style="display:flex;" (click)="viewCols()">
-      <div id="avatar" class="ion-align-items-center ion-justify-content-center" style="background-color: #2dd36f;">
-        S
+      <div [style]="{'background-image':'url('+photoAdmin+')'}" id="avatar" class="ion-align-items-center ion-justify-content-center">
+        
       </div>
-      <div id="symbol" style="margin-right: 15px;"></div>
+      <!-- <ion-thumbnail style="--border-radius:50%;--size:30px; margin:15px;border: 2px solid var(--ion-color-primary-contrast);">
+        <img [src]="photoAdmin" />
+      </ion-thumbnail> -->
+      <div id="symbol" style="margin-right: 20px;"></div>
       <div style="position: relative;display:flex;">
         <div id="avatar" class="ion-align-items-center ion-justify-content-center"
           *ngFor="let col of colaboradores;let i= index;" [attr.data-index]="i"
-          [style]="{'background-color':colors[i]}"
+          [style]="{'background-image':'url('+col.photoProfile+')'}"
           style="margin:0 0 0 -8px !important;">
-          {{col.nombre[0]}}
+          <!-- {{col.nombre[0]}} -->
         </div>
       </div>
     </div>

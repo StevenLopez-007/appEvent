@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {EventService} from '../../services/event-service.service';
 import { Ievent } from '../../model/ievent';
 import { Observable } from 'rxjs';
-import {ModalController, PopoverController,AnimationController } from '@ionic/angular';
+import { ModalController, PopoverController, AnimationController, IonRefresher } from '@ionic/angular';
 import { OptionsEventComponent } from '../options-event/options-event.component';
 import { VerColaboradoresPage } from '../ver-colaboradores/ver-colaboradores.page';
 import { SaleTicketPage } from '../sale-ticket/sale-ticket.page';
 import { SalesPage } from '../sales/sales.page';
 import { AnimationModal1 } from '../animations/modalAnimation1';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tab1',
@@ -17,6 +18,7 @@ import { AnimationModal1 } from '../animations/modalAnimation1';
 })
 export class Tab1Page implements OnInit{
   events:Observable<Ievent[]>;
+  @ViewChild('refresher') ionRefresher:IonRefresher
   slideOptions={
     slidesPerView:1,
     initialSlide:0,
@@ -27,13 +29,11 @@ export class Tab1Page implements OnInit{
               private animationCrtl:AnimationController,private animationModal1:AnimationModal1) {}
   ngOnInit(){
    this.getEvents();
-  } 
-  doRefresh(event){
-    this.getEvents();
-    event.target.complete();
   }
   async getEvents(){
-    this.eventService.getEventPerUser().subscribe(res=>{
+    this.eventService.getEventPerUser().pipe(finalize(async()=>{
+      await this.ionRefresher.complete()
+    })).subscribe(res=>{
       this.events=res['events'];
     });
   }
@@ -61,7 +61,7 @@ export class Tab1Page implements OnInit{
   async saleTicket(idEvent,nombre){
     const modal = await this.modalController.create({
       component:SaleTicketPage,
-      cssClass:'modalSaleTicket',
+      cssClass:'modalSaleSwipe',
       componentProps:{
         'idEvent':idEvent,
         'nameEvent':nombre,

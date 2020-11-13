@@ -4,9 +4,12 @@ import { tap, finalize, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Iuser } from '../../model/iuser';
 import { Observable, from } from 'rxjs';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { cordova } from '@ionic-native/core';
+
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +17,9 @@ import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
 export class AuthService {
     loginCorrect: boolean = false;
     constructor(@Inject('API_BASE_URL') private url, private http: HttpClient, private router: Router, private loadingController: LoadingController,
-        private toastController: ToastController,private statusBar:StatusBar,private themeDetection:ThemeDetection) { }
+        private toastController: ToastController, private statusBar: StatusBar, private themeDetection: ThemeDetection,
+        private googlePlus: GooglePlus,
+        private alert: AlertController) { }
 
     async login(datosUser: object) {
         await this.loadingLogin();
@@ -36,6 +41,34 @@ export class AuthService {
         return this.loginCorrect;
     }
 
+    async loginWithGoogleAndroid() {
+        try {
+            const res = await this.googlePlus.login({
+                webClientId: '972225115593-83d5dn4dos3etu7dp9ap16ph58ia7bs6.apps.googleusercontent.com',
+                offline: true
+            });
+            await this.loadingLogin();
+            this.http.post<any>(`${this.url}user/loginWithGoogleAndroid`, { userId: res['userId'] }, { params: { idToken: res['idToken'] } })
+                .pipe(finalize(async () => {
+                    await this.googlePlus.disconnect();
+                    await this.loadingController.dismiss();
+                }), catchError(async (e) => {
+                    if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
+                        return this.toastLogin(e['error']['message'], 'toastClassOffline')
+                    } else {
+                        return this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
+                    }
+                }))
+                .subscribe(async token => {
+                    await this.storeToken(token['accesstoken'], token['refreshToken'], token['datosUser']);
+                    this.router.navigate(['/']);
+                })
+        } catch (e) {
+            await this.googlePlus.disconnect();
+            await this.loadingController.dismiss();
+        }
+    }
+
     async register(datosuser: object) {
         await this.loadingLogin();
         this.http.post<any>(`${this.url}user/create`, { nombre: datosuser['nombre'], correo: datosuser['correo'], password: datosuser['password'] })
@@ -51,6 +84,23 @@ export class AuthService {
                 this.toastLogin(result['message'], 'toastClass');
             })
     }
+
+    public editProfileUser(base64:string){
+        return this.http.post<any>(`${this.url}user/editProfileUserPhoto`,{photoBase64:base64})
+    }
+
+    public editNameUser(userName:string){
+        return this.http.post<any>(`${this.url}user/editProfileUserName`,{userName:userName})
+    }
+
+    public deletePhoto(){
+        return this.http.get<any>(`${this.url}user/deleteProfilePhoto`)
+    }
+
+    async forgotPassword(email: string) {
+        return this.http.get<any>(`${this.url}user/forgotPassword`, { params: { email: email } })
+    }
+
     finUserByCorreo(correo): Observable<Iuser> {
         return this.http.get<Iuser>(`${this.url}user/findUserByCorreo`, { params: { 'correo': correo } })
     }
@@ -68,6 +118,7 @@ export class AuthService {
         if (Object.keys(userData).length !== 0) {
             window.localStorage.setItem('nameUser', userData['nombre']);
             window.localStorage.setItem('emailUser', userData['correo']);
+            window.localStorage.setItem('photo',userData['photo'].trim())
         }
     }
 
@@ -102,13 +153,26 @@ export class AuthService {
         await toast.present();
     }
 
-    logOut() {
-        window.localStorage.removeItem('a-token');
-        window.localStorage.removeItem('r-token');
-        window.localStorage.removeItem('nameUser');
-        window.localStorage.removeItem('emailUser');
-        this.router.navigate(['/login']);
+    async logOut() {
+        try {
+            await this.loadingLogin();
+            window.localStorage.removeItem('a-token');
+            window.localStorage.removeItem('r-token');
+            window.localStorage.removeItem('nameUser');
+            window.localStorage.removeItem('emailUser');
+            window.localStorage.removeItem('photo');
+            await this.googlePlus.logout();
+            await this.loadingController.dismiss();
+            this.router.navigate(['/login']);
+        } catch (e) {
+            await this.loadingController.dismiss();
+            this.router.navigate(['/login']);
+        }
     }
+
+
+
+    //theme/////////////////////////
 
     darkMode(dark: boolean) {
         if (['true', 'false'].includes(window.localStorage.getItem('darkTheme'))) {
@@ -125,17 +189,17 @@ export class AuthService {
         window.localStorage.setItem('takeFromSystem', dark.toString())
     }
 
-    async darkModeSystem():Promise<boolean> {
-        try{
-        const res = await this.availableDarkThemeSystem();
-        var darkEnable;
-        if(res){
-            darkEnable = await this.themeDetection.isDarkModeEnabled();
+    async darkModeSystem(): Promise<boolean> {
+        try {
+            const res = await this.availableDarkThemeSystem();
+            var darkEnable;
+            if (res) {
+                darkEnable = await this.themeDetection.isDarkModeEnabled();
+            }
+            return darkEnable.value;
+        } catch (e) {
+            return false;
         }
-        return darkEnable.value;
-    }catch(e){
-        return false;
-    }
         // const prefersDark = window.matchMedia('(prefers-color-scheme:dark)');
     }
 
@@ -165,23 +229,23 @@ export class AuthService {
         }
     }
 
-    setStatusBarColor(){
-        if(document.body.classList.contains('dark')){
+    setStatusBarColor() {
+        if (document.body.classList.contains('dark')) {
             this.statusBar.overlaysWebView(false)
             this.statusBar.styleLightContent();
             this.statusBar.backgroundColorByHexString('#180B4F');
-          }else{
+        } else {
             this.statusBar.overlaysWebView(false)
             this.statusBar.styleDefault();
             this.statusBar.backgroundColorByHexString('#F8F9F9');
-          }
+        }
     }
 
-    async availableDarkThemeSystem(){
-        try{
-        const res = await this.themeDetection.isAvailable();
-        return res.value;
-        }catch(e){
+    async availableDarkThemeSystem() {
+        try {
+            const res = await this.themeDetection.isAvailable();
+            return res.value;
+        } catch (e) {
             return false;
         }
     }

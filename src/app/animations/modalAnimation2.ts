@@ -3,7 +3,7 @@ import { AnimationController } from '@ionic/angular';
 @Injectable({
     providedIn:'root'
 })
-export class AnimationModal1{
+export class AnimationModal2{
     enterAnimation:any;
     leaveAnimation:any;
     constructor(private animationCrtl:AnimationController){
@@ -14,29 +14,17 @@ export class AnimationModal1{
           
             const wrapperAnimation = this.animationCrtl.create()
             .addElement(baseEl.querySelector('.modal-wrapper')!)
-            .keyframes([
-              { offset: 0,opacity:'1',transform: 'translateY(150%)' },
-              { offset: 1, opacity:'1',transform: 'translateY(55%)' }
-            ]);
+            .fromTo('opacity','0.01','1');
       
             return this.animationCrtl.create()
             .addElement(baseEl)
             .easing('ease-out')
-            .duration(300)
+            .duration(200)
             .addAnimation([backDropAnimation,wrapperAnimation])
           }
 
         this.leaveAnimation = (baseEl:any)=>{
-            return this.animationCrtl.create()
-            .addElement(baseEl.querySelector('.modal-wrapper')!)
-            .duration(0)
-            .fromTo('opacity','0','0')
-            .addAnimation(
-              this.animationCrtl.create()
-              .addElement(baseEl.querySelector('ion-backdrop')!)
-              .duration(300)
-              .fromTo('opacity','0.66','0.01')
-            )
+            return this.enterAnimation(baseEl).direction('reverse')
           }
     }
 }

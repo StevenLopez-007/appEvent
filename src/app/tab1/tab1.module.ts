@@ -7,6 +7,7 @@ import { Tab1Page } from './tab1.page';
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { ColorEventPipe } from '../pipes/color-event.pipe';
 import { OrderEventsPerDatePipe } from '../pipes/order-events-per-date.pipe';
+import {RefreshControl} from '../directives/refresherController'
 
 
 @NgModule({
@@ -17,6 +18,6 @@ import { OrderEventsPerDatePipe } from '../pipes/order-events-per-date.pipe';
     ReactiveFormsModule,
     Tab1PageRoutingModule
   ],
-  declarations: [Tab1Page,ColorEventPipe,OrderEventsPerDatePipe]
+  declarations: [Tab1Page,ColorEventPipe,OrderEventsPerDatePipe,RefreshControl]
 })
 export class Tab1PageModule {}

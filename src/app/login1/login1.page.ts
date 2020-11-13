@@ -3,17 +3,23 @@ import { AuthService } from '../../services/auth/auth.service';
 import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { ModalController } from '@ionic/angular';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password.page';
+import { AnimationModal1 } from '../animations/modalAnimation1';
 
 @Component({
   selector: 'app-login1',
   templateUrl: './login1.page.html',
   styleUrls: ['./login1.page.scss'],
+  providers:[AnimationModal1]
 })
 export class Login1Page implements OnInit {
   ionicForm:FormGroup;
   isSubmitted =false;
+  social:boolean=false;
   constructor(private authService:AuthService,public formBuilder:FormBuilder,private statusBar:StatusBar,
-              private splashScreen:SplashScreen,) { }
+              private splashScreen:SplashScreen,private modalController: ModalController,
+              private animationModal1:AnimationModal1) { }
   datosUser ={};
   register:boolean = false;
   showPassword:boolean=false;
@@ -40,7 +46,11 @@ export class Login1Page implements OnInit {
     if(await this.authService.login(datosUser)){
       this.ionicForm.reset();
     };
-  } 
+  }
+
+  async loginWithGoogle(){
+    await this.authService.loginWithGoogleAndroid();
+  }
   async registerUser(datosUser:any){
     await this.authService.register(datosUser);
   }
@@ -68,4 +78,19 @@ export class Login1Page implements OnInit {
     
   }
 
+
+  //forgot password
+
+  async modalForgotPassword(){
+    const modal = await this.modalController.create({
+      component:ForgotPasswordPage,
+      cssClass:'modalSaleSwipeLogin',
+      backdropDismiss:false,
+      mode:'md',
+      enterAnimation:this.animationModal1.enterAnimation,
+      leaveAnimation:this.animationModal1.leaveAnimation
+    });
+
+    await modal.present();
+  }
 }

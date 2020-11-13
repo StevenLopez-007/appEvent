@@ -8,12 +8,13 @@ import { OptionsSalePage } from '../options-sale/options-sale.page';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ScrollHideConfig, ScrollHideDirective } from '../scrollHide.module';
+import { ScrollHideConfig } from '../directives/scrollHide.module';
+import {CheckPermissions} from '../../services/checkPermissions'
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.page.html',
   styleUrls: ['./sales.page.scss'],
-  providers:[ScrollHideDirective]
+  providers:[CheckPermissions]
 })
 export class SalesPage implements OnInit {
   @Input() idEvent: string;
@@ -38,14 +39,10 @@ export class SalesPage implements OnInit {
     private diagnostic: Diagnostic,
     private toastController: ToastController,
     private alertController: AlertController,
-    private scrollHideDirective:ScrollHideDirective) { }
+    private checkPermissions:CheckPermissions) { }
 
   async ngOnInit() {
     await this.getSales();
-  }
-
-  ionViewDidEnter(){
-    this.scrollHideDirective.createAnimation();
   }
   async closeModal() {
     await this.modalController.dismiss();
@@ -106,29 +103,6 @@ export class SalesPage implements OnInit {
 
     }
   }
-
-  async checkPermissions() {
-    try {
-      const status = await this.diagnostic.requestRuntimePermission(this.diagnostic.permission.WRITE_EXTERNAL_STORAGE);
-      switch (status) {
-        case this.diagnostic.permissionStatus.GRANTED: {
-          return true;
-        }
-        case this.diagnostic.permissionStatus.DENIED_ALWAYS: {
-          await this.AlertOpenSettingStorage();
-          return false;
-        }
-        default: {
-          await this.Toast('Se necesitan permisos para guardar codigos QR.');
-          return false;
-        }
-      }
-    } catch (e) {
-      await this.Toast('Ocurrió un error al solicitar permisos.');
-      return false;
-    }
-  }
-
   async reSendQREmail(id: string) {
     await this.presentLoading();
     this.eventService.reSendQREmail(id).pipe(catchError(e => {
@@ -143,9 +117,8 @@ export class SalesPage implements OnInit {
       this.Toast(res['message']);
     })
   }
-
   async getCodeQR(id: string, datosClient: object) {
-    if (await this.checkPermissions()) {
+    if (await this.checkPermissions.checkPermissions()) {
       await this.presentLoadingSaveImg();
       this.eventService.getNewCodeQr(id).pipe(catchError(async e => {
         if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
@@ -175,7 +148,7 @@ export class SalesPage implements OnInit {
       keyboardClose: true,
 
     })
-    toast.present();
+   await toast.present();
   }
   async AlertOpenSettingStorage() {
     const alert = await this.alertController.create({

@@ -43,7 +43,7 @@
 ion-card-title{
     font-family: Comforta-Bold;
     letter-spacing: -1px;
-    color:white;
+    color:var(--ion-color-tertiary-contrast);
 }
 .proximosEventos ion-item-option{
     --background:var(--ion-color-buttom);

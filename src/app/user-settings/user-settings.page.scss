@@ -1,0 +1,82 @@
+.list1 ion-item {
+  --background: transparent;
+}
+.list1 ion-item ion-label h3 {
+  color: var(--ion-color-tertiary-contrast);
+  font-family: Comforta-Bold;
+}
+.list1 ion-item ion-label h4 {
+  color: #614dca;
+  font-family: Comforta-Light;
+}
+.list1 {
+  background-color: transparent;
+}
+
+ion-list ion-list-header {
+  color: var(--ion-color-tertiary-contrast);
+  font-family: Comforta-Bold;
+}
+.list1 ion-icon {
+  color: var(--ion-color-buttom);
+}
+.list1 ion-label {
+  --color: var(--ion-color-tertiary-contrast);
+}
+
+.itemEditName {
+  --border-color: white;
+  --border-width: 0 0 3px 0;
+  --background: #7C75A7;
+    width: 100%;
+  --highlight-color-focused: white;
+  --highlight-color-invalid: white;
+  --highlight-color-valid: white;
+}
+
+.itemEditName ion-input{
+  font-family:Comforta-Bold;
+}
+
+.buttonEditName ion-button{
+  --color:white;
+  font-family: Comforta-Bold;
+}
+.headerEditName{
+  color: white;
+  font-family: Comforta-Bold;
+}
+
+.listEditName{
+  background-color: #7C75A7;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.hideKeyboard{
+  opacity: 0;
+}
+.buttom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 40px;
+  border-radius: 50%;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ion-color-buttom);
+  color: var(--ion-color-text-buttom);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #dcdcdc;
+}

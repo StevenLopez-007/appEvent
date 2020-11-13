@@ -73,7 +73,6 @@
     font-family: Comforta-Bold;
     color: #fe637b;
   }
-
   .toastClass{
     --background:#eb445a;
     --color:#fff;
@@ -102,7 +101,7 @@
     top: 0;
   }
 
-  .modalSaleTicket{
+  .modalSaleSwipe{
     --height:50vh;
     --width:100%;
     --backdrop-opacity:0.35;
@@ -110,10 +109,29 @@
     position: absolute;
     bottom:0;
     overflow: hidden;
+    --background:var(--ion-color-primary);
   }
 
+  .modalSaleSwipeLogin{
+    --height:50vh;
+    --width:100%;
+    --backdrop-opacity:0.35;
+    --border-radius:20px;
+    position: absolute;
+    bottom:0;
+    overflow: hidden;
+    --background:#3d3d3d;
+  }
+
+  .modalProfileOptions{
+    --height:250px;
+    --width:250px;
+    --background:var(--ion-color-primary);
+    --border-radius:20px;
+  }
   .buttonClassAlert{
     color:#fff !important;
+    font-family: Comforta-Bold;
   }
   .alertClass{
     --background: #7C75A7;
@@ -127,6 +145,13 @@
     color:#fff;
     font-family: Comforta-Bold;
   }
+
+  ion-refresher ion-spinner{
+    color:var(--ion-color-primary-contrast) !important;
+  }
+  // .refresher-refreshing-icon ion-spinner{
+  //   color:var(--ion-color-primary-contrast);
+  // }
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
