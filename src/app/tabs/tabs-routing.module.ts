@@ -29,10 +29,6 @@ const routes: Routes = [
         canActivate:[ScanGuardGuard],
         canDeactivate:[ScanDesactivateGuard],
         loadChildren:()=>import('../validate-entry/validate-entry.module').then(m=>m.ValidateEntryPageModule),
-        data:{
-          camera:0,
-          light:false
-        }
       },
       {
         path: '',

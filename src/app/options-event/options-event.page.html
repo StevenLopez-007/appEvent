@@ -1,0 +1,32 @@
+<ion-list *ngIf="showOptions1" [@animationOptions1]>
+  <ion-list-header>
+    <ion-label>Opciones</ion-label>
+  </ion-list-header>
+  <ion-item (click)="closePopover(1)">
+    <ion-label>Vender entrada</ion-label>
+    <!-- <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> -->
+  </ion-item>
+  <ion-item (click)="closePopover(2)">
+    <ion-label>Entradas vendidas</ion-label>
+    <!-- <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> -->
+  </ion-item>
+  <ion-item (click)="closePopover(3)">
+    <ion-label>Ver colaboradores</ion-label>
+    <!-- <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> -->
+  </ion-item>
+  <ion-item detail (click)="showNotificationOptionsEnter()">
+    <ion-label>Notificarme</ion-label>
+  </ion-item>
+</ion-list>
+
+<ion-list *ngIf="showOptions2" [@animationOptions2]>
+  <ion-list-header>
+    <ion-button (click)="showNotificationOptionsLeave()"><ion-icon style="color:white;" slot="start" name="arrow-back"></ion-icon></ion-button>
+  </ion-list-header>
+  <ion-item (click)="closePopover(4)">
+    <ion-label>Programar fecha</ion-label>
+  </ion-item>
+  <ion-item (click)="closePopover(5)">
+    <ion-label>En la fecha del evento</ion-label>
+  </ion-item>
+</ion-list>

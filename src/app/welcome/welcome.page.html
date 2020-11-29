@@ -1,0 +1,70 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background:white;height:50px;">
+    <ion-buttons style="transition: 0.25s;" [style]="{'opacity':hide?0:1}"  slot="end">
+      <ion-button [disabled]="hide" (click)="exit(true)" [ripple]="false"
+        style="--color:black;--ripple-color:transparent;">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background:white !important;">
+  <ion-slides (ionSlideTransitionEnd)="hideButtonExit()" #slides mode="md" pager="md">
+    <ion-slide>
+      <div class="slide">
+        <lottie-player style="transform: scale(2) !important; margin-top: 35px;"  autoplay loop src="../../assets/animaciones/welcome.json">
+        </lottie-player>
+        <h3>Bienvenido</h3>
+        <p>Hola {{nameUser}}, te damos la bienvenida a <b>AppEvent</b>, una applicación que te ayudará a administrar de
+          mejor manera
+          tus eventos. <br> <br>
+          ¡Echa un vistazo a las funcionalidades!
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <lottie-player  autoplay loop src="../../assets/animaciones/event.json">
+        </lottie-player>
+        <h3>Eventos</h3>
+        <p>Crea eventos para poder administrarlos, agrega un nombre, descripción, entradas, etc a tu evento.
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <lottie-player  autoplay loop src="../../assets/animaciones/team.json">
+        </lottie-player>
+        <h3>Colaboradores</h3>
+        <p>Busca y agrega colaboradores a tu evento para que te ayuden en vender y válidar entradas de tu evento.
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <lottie-player  autoplay loop src="../../assets/animaciones/scan.json">
+        </lottie-player>
+        <h3>Escanear</h3>
+        <p>Para validar una entrada solo debes escanear el codigo QR generado por la aplicación.
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide">
+        <lottie-player  autoplay loop src="../../assets/animaciones/start.json">
+        </lottie-player>
+        <h3>¿Comenzamos?</h3>
+        <ion-button (click)="exit(false)" expand="block" fill="solid" shape="round">
+          Continuar
+        </ion-button>
+      </div>
+    </ion-slide>
+    
+  </ion-slides>
+</ion-content>

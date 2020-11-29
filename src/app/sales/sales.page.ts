@@ -1,20 +1,20 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ModalController, LoadingController, IonSelect, IonRefresher, PopoverController, ToastController, AlertController, Platform, IonContent } from '@ionic/angular';
+import { ModalController, LoadingController, IonSelect, IonRefresher, PopoverController, ToastController} from '@ionic/angular';
 import { EventService } from '../../services/event-service.service';
 import { catchError, finalize } from 'rxjs/operators';
 import { ISales } from '../../model/i-sales';
 import { Observable } from 'rxjs';
 import { OptionsSalePage } from '../options-sale/options-sale.page';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
-import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ScrollHideConfig } from '../directives/scrollHide.module';
-import {CheckPermissions} from '../../services/checkPermissions'
+import {CheckPermissions} from '../../services/checkPermissions';
+import { AnimationAlert1 } from '../animations/alertAnimation1';
 @Component({
   selector: 'app-sales',
   templateUrl: './sales.page.html',
   styleUrls: ['./sales.page.scss'],
-  providers:[CheckPermissions]
+  providers:[CheckPermissions,AnimationAlert1]
 })
 export class SalesPage implements OnInit {
   @Input() idEvent: string;
@@ -24,8 +24,11 @@ export class SalesPage implements OnInit {
   headerScrollConfig:ScrollHideConfig ={cssProperty:'margin-top',maxValue:44};
 
   sales: Observable<ISales[]>;
-  optionsSelectPopover = {
+  optionsSelectAlert = {
     header: 'Buscar por...',
+    cssClass:'alertClass',
+    enterAnimation:this.animationAlert1.enterAnimation,
+    leaveAnimation:this.animationAlert1.leaveAnimation,
   }
   searchBy: string = 'nameClient';
   searchFilter: string;
@@ -36,10 +39,9 @@ export class SalesPage implements OnInit {
     private loadingController: LoadingController,
     private popoverController: PopoverController,
     private base64ToGallery: Base64ToGallery,
-    private diagnostic: Diagnostic,
     private toastController: ToastController,
-    private alertController: AlertController,
-    private checkPermissions:CheckPermissions) { }
+    private checkPermissions:CheckPermissions,
+    private animationAlert1:AnimationAlert1) { }
 
   async ngOnInit() {
     await this.getSales();
@@ -54,8 +56,10 @@ export class SalesPage implements OnInit {
     this.eventService.sales(this.idEvent).pipe(finalize(async () => {
       await this.loadingController.dismiss();
       await this.ionRefresher.complete();
-    }), catchError((e) => { this.error = true; return null })).subscribe((res) => {
+    })).subscribe((res) => {
       this.sales = res['sales'];
+    },e=>{
+      this.error = true;
     })
   }
 
@@ -105,29 +109,31 @@ export class SalesPage implements OnInit {
   }
   async reSendQREmail(id: string) {
     await this.presentLoading();
-    this.eventService.reSendQREmail(id).pipe(catchError(e => {
+    this.eventService.reSendQREmail(id).pipe(finalize(async () => {
+      await this.loadingController.dismiss();
+    })).subscribe(res => {
+      this.Toast(res['message']);
+    },
+    async(e)=>{
       if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
         return this.Toast(e['error']['message'])
       } else {
         return this.Toast('Ocurrió un error.')
       }
-    }), finalize(async () => {
-      await this.loadingController.dismiss();
-    })).subscribe(res => {
-      this.Toast(res['message']);
     })
   }
   async getCodeQR(id: string, datosClient: object) {
     if (await this.checkPermissions.checkPermissions()) {
       await this.presentLoadingSaveImg();
-      this.eventService.getNewCodeQr(id).pipe(catchError(async e => {
+      this.eventService.getNewCodeQr(id).subscribe((res) => {
+        this.saveImage(res['codeQr'], datosClient)
+      },
+      async(e)=>{
         if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
           return await this.Toast(e['error']['message'])
         } else {
           return await this.Toast('Ocurrió un error.')
         }
-      })).subscribe((res) => {
-        this.saveImage(res['codeQr'], datosClient)
       })
     }
   }
@@ -149,25 +155,6 @@ export class SalesPage implements OnInit {
 
     })
    await toast.present();
-  }
-  async AlertOpenSettingStorage() {
-    const alert = await this.alertController.create({
-      header: 'Info.',
-      message: 'Has denegado el permiso al almacenamiento, ¿Deseas abrir la configuración de la aplicación?',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Aceptar',
-          handler: async () => {
-            await this.diagnostic.switchToSettings();
-          }
-        }
-      ]
-    });
-    await alert.present();
   }
   async presentLoadingSaveImg() {
     const loading = await this.loadingController.create({

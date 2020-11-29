@@ -41,12 +41,12 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row >
       <ion-label class="titulo">Datos del evento (obligatorios)</ion-label>
       <form [formGroup]="eventForm" (ngSubmit)="saveEvent()" novalidate style="width: 100%;">
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Nombre
+          <ion-label style="color:var(--ion-color-tertiary-contrast) !important; font-family: Comforta-Light;" position="floating">Nombre
             {{enviado && errrosForm.nombre.errors?.required?'| Requerido':
               enviado && errrosForm.nombre.errors?.minlength?'| Minimo 1 caracter de largo':
               enviado && errrosForm.nombre.errors?.maxlength?'| Máximo 64 caracter de largo':''
@@ -57,7 +57,7 @@
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Descripción 
+          <ion-label style="color:var(--ion-color-tertiary-contrast) !important; font-family: Comforta-Light;" position="floating">Descripción 
             {{enviado && errrosForm.descripcion.errors?.required?'| Requerido':
               enviado && errrosForm.descripcion.errors?.minlength?'| Minimo 1 caracter':
               enviado && errrosForm.descripcion.errors?.maxlength?'| Máximo 128 caracteres':''
@@ -68,7 +68,7 @@
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label style="display: flex;align-items: center;" position="floating">
+          <ion-label style="color:var(--ion-color-tertiary-contrast) !important; font-family: Comforta-Light;display: flex;align-items: center;" position="floating">
             <ion-icon style="margin-right: 5px;" slot="start" name="cash-outline"></ion-icon>Precio Entrada 
             {{enviado && errrosForm.precioEntrada.errors?.required?'| Requerido':
               enviado && errrosForm.precioEntrada.errors?.min?'| Minimo (0.01)':''
@@ -79,7 +79,7 @@
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label position="floating">Numero Entradas 
+          <ion-label style="color:var(--ion-color-tertiary-contrast) !important; font-family: Comforta-Light;" position="floating">Numero Entradas 
             {{enviado && errrosForm.numeroEntradas.errors?.required?'| Requerido':
               enviado && errrosForm.numeroEntradas.errors?.min?'| Minimo(1)':
               enviado && errrosForm.numeroEntradas.errors?.pattern?'| Numero invalido':''
@@ -90,7 +90,7 @@
       </ion-col>
       <ion-col size="12">
         <ion-item lines="none">
-          <ion-label>Fecha/hora {{enviado && errrosForm.fecha.errors?.required?'| Requerido':''}}</ion-label>
+          <ion-label style="color:var(--ion-color-tertiary-contrast) !important; font-family: Comforta-Light;">Fecha/hora {{enviado && errrosForm.fecha.errors?.required?'| Requerido':''}}</ion-label>
           <ion-datetime formControlName="fecha" cancel-text="Cancelar" doneText="Aceptar" required
             style="--placeholder-color:white;color:white;" [pickerOptions]="customPickerOptions"
             displayFormat="DD/MM/YYYY HH:mm" [min]="actualYear" [max]="2030"></ion-datetime>

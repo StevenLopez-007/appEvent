@@ -61,6 +61,9 @@ export class VerColaboradoresPage implements OnInit {
           await this.loadingController.dismiss();
         })).subscribe(res => {
           this.colaborador = res['user']
+        },
+        async (e)=>{
+          await this.presentToast('Ocurrió un error.')
         })
       }
     } else {

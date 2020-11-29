@@ -15,6 +15,7 @@ export class SwipeCloseModal {
     this.heightModal = elementToAnimate.offsetHeight - 100;
     this.animation = this.animationCtrl.create()
       .addElement(elementToAnimate)
+      .easing('linear')
       .duration(500)
       .fromTo('transform', 'translateY(55%)', `translateY(${this.MAX_TRANSLATE}%)`);
 
@@ -25,7 +26,6 @@ export class SwipeCloseModal {
       onMove: (ev) => { this.onMove(ev); },
       onEnd: (ev) => { this.onEnd(ev); }
     });
-    console.log('gesto activado')
     this.gesture.enable(true);
   }
 

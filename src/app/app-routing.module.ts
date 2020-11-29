@@ -34,16 +34,11 @@ const routes: Routes = [
     path: 'sales',
     loadChildren: () => import('./sales/sales.module').then( m => m.SalesPageModule)
   },
-  // {
-  //   path:'adminCols',
-  //   loadChildren:()=> import('./administrar-cols/administrar.module').then(m=>m.AdministrarColsComponentModule)
-  // },
-  // {
-  //   path: 'validate-entry',
-  //   canActivate:[AuthGuard,ScanGuardGuard],
-  //   canDeactivate:[ScanDesactivateGuard],    
-  //   loadChildren: () => import('./validate-entry/validate-entry.module').then( m => m.ValidateEntryPageModule)
-  // },
+  {
+    path: 'welcome',
+    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule),
+    canActivate:[AuthGuard],
+  },
   {
     path: 'admin-cols',
     loadChildren: () => import('./admin-cols/admin-cols.module').then( m => m.AdminColsPageModule)
@@ -71,6 +66,10 @@ const routes: Routes = [
   {
     path: 'options-profile-photo',
     loadChildren: () => import('./options-profile-photo/options-profile-photo.module').then( m => m.OptionsProfilePhotoPageModule)
+  },
+  {
+    path: 'options-event',
+    loadChildren: () => import('./options-event/options-event.module').then( m => m.OptionsEvent1PageModule)
   },
 ];
 @NgModule({

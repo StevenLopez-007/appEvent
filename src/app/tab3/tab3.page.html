@@ -15,7 +15,7 @@
   <ion-grid fixed class="fadeIn animated">
     <ion-row>
       <ion-col size="12">
-        <ion-item lines="none">
+        <ion-item lines="none" (click)="openConfiguration()">
           <ion-thumbnail slot="start" style="--border-radius:50%;">
             <img [src]="dataUser.photo" alt="avatar" />
           </ion-thumbnail>
@@ -51,6 +51,16 @@
         <ion-label>Tomar tema del sistema.</ion-label>
         <ion-checkbox [ngModel]="takeFroSystem"></ion-checkbox>
       </ion-item> -->
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        <h2>Otros.</h2>
+        <!-- <ion-button>See All</ion-button> -->
+      </ion-list-header>
+      <ion-item [routerLink]="['/welcome']">
+        <ion-icon slot="start" name="happy-outline"></ion-icon>
+        <ion-label>Bienvenida</ion-label>
+      </ion-item>
     </ion-list>
   </ion-grid>
 

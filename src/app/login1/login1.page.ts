@@ -25,7 +25,7 @@ export class Login1Page implements OnInit {
   showPassword:boolean=false;
   ngOnInit() {
     this.ionicForm = this.formBuilder.group({
-      nombre:['',[Validators.required,Validators.minLength(5),Validators.pattern('^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$')]],
+      nombre:['',[Validators.required,Validators.minLength(5),Validators.maxLength(35),Validators.pattern('^[ñA-Za-z _]*[ñA-Za-z][ñA-Za-z _]*$')]],
       correo:['',[Validators.required,Validators.pattern('^([a-zA-Z0-9_\.\-])+\@([a-z-0-9\-]+\.)+([a-zA-Z0-9]{2,4})+$')]],
       password:['',[Validators.required,Validators.minLength(6)]]
     });

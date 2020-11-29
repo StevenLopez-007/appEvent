@@ -14,10 +14,10 @@
   <ion-grid fixed class="ion-margin-top">
     <ion-row style="display: flex;" class="ion-justify-content-center">
       <ion-col size="6" style="display: flex;" class="ion-justify-content-center">
-        <ion-thumbnail [class]="isLoading?'loading':''" style="--border-radius:50%;--size:150px;position: relative;">
+        <ion-thumbnail (click)="!isLoading?optionsProfilePhoto():null" [class]="isLoading?'loading':''" style="--border-radius:50%;--size:150px;position: relative;">
           <img *ngIf="!isLoading" alt="avatar" [src]="dataUser.photo" />
           <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-          <button (click)="!isLoading?optionsProfilePhoto():null" class="buttom">
+          <button class="buttom">
             <ion-icon style="font-size:22px;" name="camera"></ion-icon>
           </button>
         </ion-thumbnail>
@@ -45,14 +45,14 @@
   </ion-grid>
   <ion-list id="listEditName" class="listEditName hideKeyboard" *ngIf="editName">
     <ion-list-header class="headerEditName">
-      <h6 class="headerEditName">Escribe tu nombre.</h6>
+      <h6 class="headerEditName">Escribe tu nombre, cinco letras minímo.</h6>
     </ion-list-header>
     <ion-item class="itemEditName">
-      <ion-input  #inputEditName [(ngModel)]="nameUserEdit" style="--color:white;" type="text"></ion-input>
+      <ion-input (keyup.enter)="editNameUser()"  #inputEditName [(ngModel)]="nameUserEdit" style="--color:white;" type="text"></ion-input>
     </ion-item>
     <div class="buttonEditName ion-justify-content-end" style="display: flex;">
       <ion-button fill="clear" (click)="closeEditNameUser()">Cancelar</ion-button>
-      <ion-button fill="clear" (click)="editNameUser()">Guardar</ion-button>
+      <ion-button [disabled]="nameUserEdit.length<5" fill="clear" (click)="editNameUser()">Guardar</ion-button>
     </div>
   </ion-list>
 </ion-content>

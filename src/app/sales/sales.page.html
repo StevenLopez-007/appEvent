@@ -1,4 +1,4 @@
-<ion-header [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
+<ion-header class="ion-no-border"  [scrollHide]="headerScrollConfig" [scrollContent]="pageContent">
   <ion-toolbar style="--background:var(--ion-color-primary);">
     <ion-title class="titulo">Ventas</ion-title>
     <ion-buttons slot="start">
@@ -21,7 +21,7 @@
     <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando..."></ion-refresher-content>
   </ion-refresher>
   <ion-select style="display: none;" [(ngModel)]="searchBy" okText="Aceptar" cancel-text="Cancelar" #selectFilter
-    [interfaceOptions]="optionsSelectPopover" value="nameClient">
+    [interfaceOptions]="optionsSelectAlert" value="nameClient">
     <ion-select-option value="nameClient">Nombre Cliente</ion-select-option>
     <ion-select-option value="emailClient">Email Cliente</ion-select-option>
     <ion-select-option value="seller">Vendedor</ion-select-option>

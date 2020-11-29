@@ -32,7 +32,7 @@ export class UserSettingsPage implements OnInit {
   };
 
   cropOptions: CropOptions = {
-    quality: 100,
+    quality: 70,
     targetHeight: 500,
     targetWidth: 500
   }
@@ -42,7 +42,7 @@ export class UserSettingsPage implements OnInit {
     encodingType:this.camera.EncodingType.JPEG,
     mediaType:this.camera.MediaType.PICTURE,
     sourceType:this.camera.PictureSourceType.CAMERA,
-    quality: 100,
+    quality: 70,
   }
 
   editName:boolean=false;
@@ -92,7 +92,15 @@ export class UserSettingsPage implements OnInit {
   async deletePhoto(){
     // this.closeEditNameUser()
     await this.loading();
-    this.authService.deletePhoto().pipe(catchError(async(e)=>{
+    this.authService.deletePhoto().pipe(finalize(async()=>{
+      await this.loadingController.dismiss();
+    })).subscribe((res)=>{
+      if(res != undefined){
+        window.localStorage.setItem('photo',res['photo']);
+        this.dataUser['photo'] = window.localStorage.getItem('photo');
+      }
+    },
+    async (e)=>{
       await this.loadingController.dismiss();
       if(e instanceof HttpErrorResponse && (e.status == 400 || e.status==500)){
         return await this.alert(e['error']['message'])
@@ -100,33 +108,28 @@ export class UserSettingsPage implements OnInit {
       else{
         return await this.alert('Ocurrió un error al eliminar tu foto')
       }
-    }),finalize(async()=>{
-      await this.loadingController.dismiss();
-    })).subscribe((res)=>{
-      if(res != undefined){
-        window.localStorage.setItem('photo',res['photo']);
-        this.dataUser['photo'] = window.localStorage.getItem('photo');
-      }
     })
   }
   //Editar nombre
   async editNameUser(){
     this.closeEditNameUser()
     await this.loading();
-    this.authService.editNameUser(this.nameUserEdit).pipe(catchError(async(e)=>{
+    this.authService.editNameUser(this.nameUserEdit).pipe(finalize(async()=>{
+      this.nameUserEdit='';
+      await this.loadingController.dismiss();
+    })).subscribe((res)=>{
+      if(res != undefined){
+        window.localStorage.setItem('nameUser',res['newName']);
+        this.dataUser['nameUser'] = window.localStorage.getItem('nameUser');
+      }
+    },
+    async (e)=>{
       await this.loadingController.dismiss();
       if(e instanceof HttpErrorResponse && (e.status == 400 || e.status==500)){
         return await this.alert(e['error']['message'])
       }
       else{
         return await this.alert('Ocurrió un error al cambiar tu nombre de usuario')
-      }
-    }),finalize(async()=>{
-      await this.loadingController.dismiss();
-    })).subscribe((res)=>{
-      if(res != undefined){
-        window.localStorage.setItem('nameUser',res['newName']);
-        this.dataUser['nameUser'] = window.localStorage.getItem('nameUser');
       }
     })
   }
@@ -138,8 +141,11 @@ export class UserSettingsPage implements OnInit {
         document.getElementById('listEditName').classList.remove('hideKeyboard')
       },100)
       await this.inputEditName.setFocus();
+      this.inputEditName.maxlength=35;
+      this.inputEditName.minlength=5;
+      this.inputEditName.placeholder=this.dataUser['nameUser'];
     },150)
-    this.nameUserEdit = this.dataUser['nameUser'];
+    // this.nameUserEdit = this.dataUser['nameUser'];
     
   }
 
@@ -176,7 +182,14 @@ export class UserSettingsPage implements OnInit {
   }
 
   editPhoto(base64: string) {
-    this.authService.editProfileUser(base64).pipe(catchError((error) => {
+    this.authService.editProfileUser(base64).subscribe((res) => {
+      if(res != undefined){
+        window.localStorage.setItem('photo', base64);
+        this.dataUser['photo'] = window.localStorage.getItem('photo');
+      }
+      this.isLoading = false;
+    },
+    async (error)=>{
       this.isLoading = false;
       if(error instanceof HttpErrorResponse && (error.status ==400 || error.status ==500)){
         return this.alert(error['error']['message'])
@@ -184,12 +197,6 @@ export class UserSettingsPage implements OnInit {
       else{
         return this.alert('Ocurrió un error, asegurate que la imagen pesa menos 45mb.')
       }
-    })).subscribe((res) => {
-      if(res != undefined){
-        window.localStorage.setItem('photo', base64);
-        this.dataUser['photo'] = window.localStorage.getItem('photo');
-      }
-      this.isLoading = false;
     })
   }
 

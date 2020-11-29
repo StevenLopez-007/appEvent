@@ -5,14 +5,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../services/event-service.service';
 import { finalize } from 'rxjs/operators';
 import { ErrorEmailsPage } from '../error-emails/error-emails.page';
-
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
-  // customPickerOptions:any;
+  customPickerOptions:any={
+    cssClass:'pickerOptions'
+  };
   eventForm: FormGroup;
   colaboradores: Array<any> = [];
   enviado: boolean = false;
@@ -40,11 +41,7 @@ export class Tab2Page implements OnInit {
 
   saveEvent() {
     this.enviado = true
-    if (!this.eventForm.valid) {
-      console.log("Cumpla los requisitos")
-      console.log(this.eventForm.controls)
-    }
-    else {
+    if(this.eventForm.valid) {
       this.presentLoading();
       this.eventService.saveEvent(this.eventForm.value).pipe(finalize(()=>{this.loadingController.dismiss()})).subscribe(result => {
         if (result.status === 200) {

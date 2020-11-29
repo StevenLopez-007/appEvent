@@ -21,7 +21,7 @@ export class AnimationModal1{
       
             return this.animationCrtl.create()
             .addElement(baseEl)
-            .easing('ease-out')
+            .easing('ease')
             .duration(300)
             .addAnimation([backDropAnimation,wrapperAnimation])
           }

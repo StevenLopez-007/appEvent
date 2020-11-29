@@ -55,17 +55,18 @@ export class ForgotPasswordPage implements OnInit {
 
   async forgotPass(datos:object){
     await this.loading();
-     (await this.authService.forgotPassword(datos['email'])).pipe(catchError((e)=>{
-       if(e instanceof HttpErrorResponse && (e.status == 400 || e.status ==500)){
-         return this.toast(e['error']['message'])
-       }else{
-         return this.toast('Ups, parece que ha ocurrido un error.')
-       }
-     }),finalize(async()=>{
+     (await this.authService.forgotPassword(datos['email'])).pipe(finalize(async()=>{
         await this.loadingController.dismiss();
      })).subscribe(async (res)=>{
         this.forgotPassForm.reset()
         await this.toast(res['message'])
+     },
+     async(e)=>{
+      if(e instanceof HttpErrorResponse && (e.status == 400 || e.status ==500)){
+        return this.toast(e['error']['message'])
+      }else{
+        return this.toast('Ups, parece que ha ocurrido un error.')
+      }
      })
   }
 

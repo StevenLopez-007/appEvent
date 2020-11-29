@@ -1,14 +1,9 @@
-<ion-content  [fullscreen]="true" [refreshCtrl]="refresher">
+<ion-content>
   <ion-refresher #refresher slot="fixed" (ionRefresh)="getEvents()">
     <ion-refresher-content refreshingSpinner="circles" refreshingText="Actualizando...">
     </ion-refresher-content>
   </ion-refresher>
-  <!-- <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-  <ion-grid fixed style="padding: 0;" class="fadeIn animated">
+  <ion-grid fixed style="padding: 0;overflow: unset !important;" class="fadeIn animated">
     <ion-row>
       <ion-col size="12">
         <h1 style="margin-top:20px;" class="titulo">Mis eventos</h1>
@@ -52,9 +47,7 @@
       *ngIf="events?.length>0;else loadingProxEvents">
       <ion-col size="12" *ngFor="let event of (events | orderEventsPerDate)">
         <ion-card class="proximosEventos" >
-
-          
-            <ion-item lines="none" (click)="optionsEvents(event._id,event.colaboradores,event.nombre,event,$event)">
+            <ion-item lines="none" (click)="optionsEvents(event._id,event.colaboradores,event.nombre,event,$event,event.fechaEvento)">
               <ion-avatar class="ion-margin">
                 <div class="avatarEvent" [style]="{'background-color': ''|colorEvent}">{{event.nombre[0]}}</div>
               </ion-avatar>

@@ -22,15 +22,12 @@ export class ValidateEntryPage implements OnInit {
     private activatedRoute:ActivatedRoute) {
   }
    ngOnInit() {
-    this.activatedRoute.data.subscribe(data=>{
-      this.camera=data['camera'];
-      this.light=data['light'];
-    })
     this.setBox();
-    
   }
   async ionViewDidEnter(){
-    await this.scanQR()
+    this.camera = 0;
+    this.light =false;
+    await this.scanQR();
   }
   ionViewWillLeave(){
     this.scanSub.unsubscribe();
@@ -46,18 +43,18 @@ export class ValidateEntryPage implements OnInit {
 
   }
   validateEntry(text) {
-    this.eventService.validateEntry(text).pipe(catchError(async (err) => { 
+    this.eventService.validateEntry(text).pipe(finalize(() => {
+      this.scanQR();
+    })).subscribe(async (res) => {
+      await this.toast(res['message']);
+    },
+    async (err)=>{
       if(err instanceof HttpErrorResponse && (err.status ==400 || err.status ==500)){
         return await this.toast(err['error']['message']);
       }
       else{
         return await this.toast('Ocurrió un error.')
       }
-      
-    }), finalize(() => {
-      this.scanQR();
-    })).subscribe(async (res) => {
-      await this.toast(res['message']);
     })
   }
 

@@ -46,11 +46,14 @@ private handle401Error(request: HttpRequest<any>, next: HttpHandler):Observable<
 }
 
     private addToken(req:HttpRequest<any>,token:string){
-        return req.clone({
-            setHeaders:{
-                'a-token':token,
-                'Access-Control-Allow-Origin': '*'
-            },
-        })
+        if(req.url.search('/api/v1/notifications')===-1){
+            return req.clone({
+                setHeaders:{
+                    'a-token':token,
+                    'Access-Control-Allow-Origin': '*'
+                },
+            })
+        }
+        return req
     }
 }

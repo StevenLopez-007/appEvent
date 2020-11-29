@@ -4,16 +4,21 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: var(--ion-color-secondary-contrast);
+    background-color: #7C75A7;
     flex-direction: column;
 }
 
-.content img{
-    width:75%;
-    // height: 75%;
+.content lottie-player{
+    width:80%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 .content h3{
     font-family: Comforta-Bold;
     color:white;
     margin:35px 0;
+    text-align: center;
 }
