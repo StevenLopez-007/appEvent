@@ -1,16 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { tap, finalize, catchError } from 'rxjs/operators';
+import { tap, finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Iuser } from '../../model/iuser';
-import { Observable, from } from 'rxjs';
-import { LoadingController, ToastController, AlertController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { ThemeDetection } from '@ionic-native/theme-detection/ngx';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
-import { cordova } from '@ionic-native/core';
-
-
+import { NotificationsService } from '../notifications.service';
+import {OneSignalNotificationsService} from '../one-signal-notifications.service';
+declare let NavigationBar:any;
 @Injectable({
     providedIn: 'root'
 })
@@ -19,24 +19,28 @@ export class AuthService {
     constructor(@Inject('API_BASE_URL') private url, private http: HttpClient, private router: Router, private loadingController: LoadingController,
         private toastController: ToastController, private statusBar: StatusBar, private themeDetection: ThemeDetection,
         private googlePlus: GooglePlus,
-        private alert: AlertController) { }
+        private notificationsService:NotificationsService,
+        private oneSignalNotificationsService:OneSignalNotificationsService) { }
 
     async login(datosUser: object) {
+        this.loginCorrect = false;
         await this.loadingLogin();
         this.http.post<any>(`${this.url}user/login`, { correo: datosUser['correo'], password: datosUser['password'] })
             .pipe(finalize(async () => {
                 await this.loadingController.dismiss();
-            }), catchError((e) => {
-                if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
-                    return this.toastLogin(e['error']['message'], 'toastClassOffline')
-                } else {
-                    return this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
-                }
             }))
-            .subscribe(async token => {
+            .subscribe(async (token) => {
                 this.loginCorrect = true;
+                await this.checkShowWelcome(token['datosUser']['correo'])
                 await this.storeToken(token['accesstoken'], token['refreshToken'], token['datosUser']);
-                this.router.navigate(['/']);
+                await this.oneSignalNotificationsService.getTags(token['datosUser']['correo']);
+                // this.notificationsService.getToken(token['datosUser']['correo'])
+            }, async (e) => {
+                if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
+                    return await this.toastLogin(e['error']['message'], 'toastClassOffline')
+                } else {
+                    return await this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
+                }
             })
         return this.loginCorrect;
     }
@@ -52,16 +56,17 @@ export class AuthService {
                 .pipe(finalize(async () => {
                     await this.googlePlus.disconnect();
                     await this.loadingController.dismiss();
-                }), catchError(async (e) => {
-                    if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
-                        return this.toastLogin(e['error']['message'], 'toastClassOffline')
-                    } else {
-                        return this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
-                    }
                 }))
                 .subscribe(async token => {
                     await this.storeToken(token['accesstoken'], token['refreshToken'], token['datosUser']);
                     this.router.navigate(['/']);
+                },
+                async (e)=>{
+                    if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
+                        return await this.toastLogin(e['error']['message'], 'toastClassOffline')
+                    } else {
+                        return await this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
+                    }
                 })
         } catch (e) {
             await this.googlePlus.disconnect();
@@ -74,26 +79,27 @@ export class AuthService {
         this.http.post<any>(`${this.url}user/create`, { nombre: datosuser['nombre'], correo: datosuser['correo'], password: datosuser['password'] })
             .pipe(finalize(async () => {
                 await this.loadingController.dismiss();
-            }), catchError((e) => {
+            })).subscribe(async(result) => {
+                await this.toastLogin(result['message'], 'toastClass');
+            },
+            async (e)=>{
                 if (e instanceof HttpErrorResponse && (e.status == 400 || e.status == 500)) {
-                    return this.toastLogin(e['error']['message'], 'toastClassOffline')
+                    return await this.toastLogin(e['error']['message'], 'toastClassOffline')
                 } else {
-                    return this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
+                    return await this.toastLogin('Ocurrio un error, verifica tu estado de red.', 'toastClass')
                 }
-            })).subscribe((result) => {
-                this.toastLogin(result['message'], 'toastClass');
             })
     }
 
-    public editProfileUser(base64:string){
-        return this.http.post<any>(`${this.url}user/editProfileUserPhoto`,{photoBase64:base64})
+    public editProfileUser(base64: string) {
+        return this.http.post<any>(`${this.url}user/editProfileUserPhoto`, { photoBase64: base64 })
     }
 
-    public editNameUser(userName:string){
-        return this.http.post<any>(`${this.url}user/editProfileUserName`,{userName:userName})
+    public editNameUser(userName: string) {
+        return this.http.post<any>(`${this.url}user/editProfileUserName`, { userName: userName })
     }
 
-    public deletePhoto(){
+    public deletePhoto() {
         return this.http.get<any>(`${this.url}user/deleteProfilePhoto`)
     }
 
@@ -118,7 +124,7 @@ export class AuthService {
         if (Object.keys(userData).length !== 0) {
             window.localStorage.setItem('nameUser', userData['nombre']);
             window.localStorage.setItem('emailUser', userData['correo']);
-            window.localStorage.setItem('photo',userData['photo'].trim())
+            window.localStorage.setItem('photo', userData['photo'].trim())
         }
     }
 
@@ -168,6 +174,33 @@ export class AuthService {
             await this.loadingController.dismiss();
             this.router.navigate(['/login']);
         }
+    }
+
+    async checkShowWelcome(email: string) {
+        try{
+        var usersLoged = JSON.parse(window.localStorage.getItem('usersLoged') || "[]");
+        if (usersLoged == null) {
+            var user = [];
+            user.push(email);
+            window.localStorage.setItem('usersLoged', JSON.stringify(user));
+            await this.showWelcome();
+        }
+        else {
+            if (usersLoged.includes(email)) {
+                this.router.navigate(['/']);
+            } else {
+                usersLoged.push(email);
+                window.localStorage.setItem('usersLoged', JSON.stringify(usersLoged));
+                await this.showWelcome();
+            }
+        }
+    }catch(e){
+        console.log(e)
+    }
+    }
+
+    async showWelcome() {
+        await this.router.navigate(['/welcome'])
     }
 
 
@@ -231,13 +264,17 @@ export class AuthService {
 
     setStatusBarColor() {
         if (document.body.classList.contains('dark')) {
+            this.statusBar.show()
             this.statusBar.overlaysWebView(false)
             this.statusBar.styleLightContent();
             this.statusBar.backgroundColorByHexString('#180B4F');
+            NavigationBar.backgroundColorByHexString('#3B2E80',false)
         } else {
+            this.statusBar.show()
             this.statusBar.overlaysWebView(false)
             this.statusBar.styleDefault();
             this.statusBar.backgroundColorByHexString('#F8F9F9');
+            NavigationBar.backgroundColorByName('white',true)
         }
     }
 

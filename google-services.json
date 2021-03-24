@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "972225115593",
+    "firebase_url": "https://appevent-a1abc.firebaseio.com",
+    "project_id": "appevent-a1abc",
+    "storage_bucket": "appevent-a1abc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972225115593:android:b4c26447ebd8f4e5ca6418",
+        "android_client_info": {
+          "package_name": "com.salg.appevent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972225115593-i1hpake2dcq9ea94ur8t170uls87iln9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salg.appevent",
+            "certificate_hash": "7d8d2ccae10d6ecf8b3918f8a5e4163992365561"
+          }
+        },
+        {
+          "client_id": "972225115593-83d5dn4dos3etu7dp9ap16ph58ia7bs6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDELyZ3RDQA3vOWdv49HwbOVEvl8wqxN_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972225115593-83d5dn4dos3etu7dp9ap16ph58ia7bs6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

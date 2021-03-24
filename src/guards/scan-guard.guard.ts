@@ -35,8 +35,7 @@ export class ScanGuardGuard implements CanActivate {
         return false;
       }
     } catch (e) {
-      await this.alertConfig()
-      // await this.toast('Ocurrió un error al solicitar los permisos.')
+      await this.toast('Ocurrió un error al solicitar los permisos.')
       return false
     }
 

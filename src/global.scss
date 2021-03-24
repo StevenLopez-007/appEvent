@@ -8,150 +8,197 @@
  * For more information on global stylesheets, visit the documentation:
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
- 
- @font-face{
-     font-family: "Comforta-Bold";
-     src: url('./fonts/Comfortaa-Bold.ttf');
- }
- @font-face{
-    font-family: "Comforta-Light";
-    src: url('./fonts/Comfortaa-Light.ttf');
+
+@font-face {
+  font-family: "Comforta-Bold";
+  src: url("./fonts/Comfortaa-Bold.ttf");
 }
- .titulo{
-     color:var(--ion-color-tertiary-contrast);
-     font-family: Comforta-Bold;
- }
- ion-grid{
-     max-height: 100%;
-     overflow: auto;
- }
- ion-content{
-    //  overflow: auto;
-     --background: var(--ion-color-primary);
-     
- }
- .animated {
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
- @-webkit-keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-  
-    to {
-      opacity: 1;
-    }
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-  
-    to {
-      opacity: 1;
-    }
-  }
-  
-  .fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
+@font-face {
+  font-family: "Comforta-Light";
+  src: url("./fonts/Comfortaa-Light.ttf");
+}
+.titulo {
+  color: var(--ion-color-tertiary-contrast);
+  font-family: Comforta-Bold;
+}
+ion-grid {
+  max-height: 100%;
+  overflow: auto;
+}
+ion-content {
+  //  overflow: auto;
+  --background: var(--ion-color-primary);
+}
+.animated {
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  .loadingClass {
-    --background: var(--ion-color-secondary-contrast);
-    --spinner-color: #fff;
-    font-family: Comforta-Bold;
-    color: #fff;
+  to {
+    opacity: 1;
   }
-  .loadingClassLogin{
-    --background: #333333;
-    --spinner-color: #fe637b;
-    font-family: Comforta-Bold;
-    color: #fe637b;
-  }
-  .toastClass{
-    --background:#eb445a;
-    --color:#fff;
-    text-align: center;
-    font-family: Comforta-Bold;
-  }
-  .toastClassOnline{
-    --color:white;
-    text-align: center;
-    font-family: Comforta-Bold;
-    --background:#2dd36f;
-  }
-  .toastClassOffline{
-    --color:white;
-    text-align: center;
-    font-family: Comforta-Bold;
-    --background:#eb445a;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
 
-  .alertFilterClass{
-    --background:#180B4F;
+  to {
+    opacity: 1;
   }
+}
 
-  .hideScrollContent{
-    position: absolute;
-    top: 0;
-  }
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
 
-  .modalSaleSwipe{
-    --height:50vh;
-    --width:100%;
-    --backdrop-opacity:0.35;
-    --border-radius:20px;
-    position: absolute;
-    bottom:0;
-    overflow: hidden;
-    --background:var(--ion-color-primary);
-  }
+.loadingClass {
+  --background: var(--ion-color-secondary-contrast);
+  --spinner-color: #fff;
+  font-family: Comforta-Bold;
+  color: #fff;
+}
+.loadingClassLogin {
+  --background: #333333;
+  --spinner-color: #fe637b;
+  font-family: Comforta-Bold;
+  color: #fe637b;
+}
+.toastClass {
+  --background: #eb445a;
+  --color: #fff;
+  text-align: center;
+  font-family: Comforta-Bold;
+}
+.toastClassOnline {
+  --color: white;
+  text-align: center;
+  font-family: Comforta-Bold;
+  --background: #2dd36f;
+}
+.toastClassOffline {
+  --color: white;
+  text-align: center;
+  font-family: Comforta-Bold;
+  --background: #eb445a;
+}
 
-  .modalSaleSwipeLogin{
-    --height:50vh;
-    --width:100%;
-    --backdrop-opacity:0.35;
-    --border-radius:20px;
-    position: absolute;
-    bottom:0;
-    overflow: hidden;
-    --background:#3d3d3d;
-  }
+.alertFilterClass {
+  --background: #180b4f;
+}
 
-  .modalProfileOptions{
-    --height:250px;
-    --width:250px;
-    --background:var(--ion-color-primary);
-    --border-radius:20px;
-  }
-  .buttonClassAlert{
-    color:#fff !important;
-    font-family: Comforta-Bold;
-  }
-  .alertClass{
-    --background: #7C75A7;
-  }
-  .alertClass .alert-message{
-    color:#fff;
-    font-family: Comforta-Light;
-  }
+.hideScrollContent {
+  position: absolute;
+  top: 0;
+}
 
-  .alertClass .alert-title{
-    color:#fff;
-    font-family: Comforta-Bold;
-  }
+.modalSaleSwipe {
+  --height: 50vh;
+  --width: 100%;
+  --backdrop-opacity: 0.35;
+  --border-radius: 20px;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  --background: var(--ion-color-primary);
+}
 
-  ion-refresher ion-spinner{
-    color:var(--ion-color-primary-contrast) !important;
-  }
-  // .refresher-refreshing-icon ion-spinner{
-  //   color:var(--ion-color-primary-contrast);
-  // }
+.modalSaleSwipeLogin {
+  --height: 50vh;
+  --width: 100%;
+  --backdrop-opacity: 0.35;
+  --border-radius: 20px;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  --background: #3d3d3d;
+}
+
+.modalProfileOptions {
+  --height: 250px;
+  --width: 250px;
+  --background: var(--ion-color-primary);
+  --border-radius: 20px;
+}
+.buttonClassAlert {
+  color: #fff !important;
+  font-family: Comforta-Bold;
+}
+.alertClass {
+  --background: #7c75a7;
+}
+.alertClass .alert-message {
+  color: #fff;
+  font-family: Comforta-Light;
+}
+.alertClass .alert-title {
+  color: #fff;
+  font-family: Comforta-Bold;
+}
+ion-refresher ion-refresher-content ion-spinner {
+  color: #180b4f !important;
+}
+ion-refresher ion-refresher-content .arrow-container ion-icon{
+  color: #180b4f !important;
+}
+
+.alertClass .select-interface-option[aria-checked=true] .alert-radio-icon {
+  border-color: white !important;
+}
+.alertClass .select-interface-option .alert-radio-icon {
+  border-color: white !important;
+}
+.alertClass .select-interface-option[aria-checked=true] .alert-radio-inner {
+  background-color: white !important;
+}
+.alertClass .select-interface-option .alert-radio-inner {
+  background-color: white !important;
+}
+.alertClass .select-interface-option .alert-radio-label {
+  color: white;
+  font-family: Comforta-Bold;
+}
+.alertClass .select-interface-option[aria-checked=true] .alert-radio-label {
+  color: white;
+  font-family: Comforta-Bold;
+}
+.alertClass button{
+  color:white !important;
+  font-family: Comforta-Bold;
+}
+
+.swiper-pagination-bullet{
+  transition: 0.25s;
+}
+.swiper-pagination-bullet-active{
+  width: 10px;
+  height: 10px;
+  transform: translateY(-7px);
+  margin: 0 10px !important;
+}
+
+.pickerOptions{
+  --background:#7C75A7;
+  color:white;
+}
+.pickerOptions .picker-button{
+  color:white;
+  font-family: Comforta-Bold;
+}
+
+.popoverClass{
+  --background:var(--ion-color-secondary-contrast);
+  --height:255px;
+}
+
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
@@ -159,7 +206,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";

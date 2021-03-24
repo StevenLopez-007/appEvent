@@ -9,8 +9,9 @@ import { SalesPage } from '../sales/sales.page';
 import { AnimationModal1 } from '../animations/modalAnimation1';
 import { finalize } from 'rxjs/operators';
 import { OneSignalNotificationsService } from '../../services/one-signal-notifications.service';
-import { AlertController, IonRefresher, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, IonRefresher, ModalController, PopoverController, ToastController, IonSlides } from '@ionic/angular';
 import { AnimationAlert1 } from '../animations/alertAnimation1';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -21,24 +22,72 @@ import { AnimationAlert1 } from '../animations/alertAnimation1';
 })
 export class Tab1Page implements OnInit {
   events: Observable<Ievent[]>;
+  eventsCol: Observable<Ievent[]>;
+  empty: boolean = false;
+  emptyCol: boolean = false;
+  segment: number = 0;
   @ViewChild('refresher') ionRefresher: IonRefresher;
-  slideOptions = {
-    slidesPerView: 1,
+  @ViewChild('slides', { static: true }) ionSlides: IonSlides;
+  // slideOptions = {
+  //   slidesPerView: 1,
+  //   initialSlide: 0,
+  //   spaceBetween: -85,
+  // };
+  slidesOptions = {
     initialSlide: 0,
-    spaceBetween: -85,
+    direction: 'horizontal',
+    speed: 300,
+    spaceBetween: 8,
+    slidesPerView: 1,
+    freeMode: false,
+    loop: false
   };
-
   constructor(private eventService: EventService, private modalController: ModalController, private popoverController: PopoverController,
-    private animationModal1: AnimationModal1, private animationAlert1: AnimationAlert1, private oneSignalNotificationsService: OneSignalNotificationsService, private alertController: AlertController) { }
+    private animationModal1: AnimationModal1, private animationAlert1: AnimationAlert1, private oneSignalNotificationsService: OneSignalNotificationsService, private alertController: AlertController,
+    private toastController: ToastController) { }
   ngOnInit() {
     this.getEvents();
+    this.getEventPerCol();
   }
   async getEvents() {
     this.eventService.getEventPerUser().pipe(finalize(async () => {
       await this.ionRefresher.complete()
     })).subscribe(res => {
-      this.events = res['events'];
-    });
+      if (res['events'].length == 0) {
+        this.events =res['events'];
+        this.empty = true;
+      } else {
+        this.events = res['events'];
+        this.empty = false;
+      }
+    },
+      async error => {
+        if (error instanceof HttpErrorResponse && (error.status == 400 || error.status == 500)) {
+          await this.presentToast(error['error']['message']);
+        } else {
+          await this.presentToast('Ocurrió un error.');
+        }
+      });
+  }
+  async getEventPerCol() {
+    this.eventService.getEventPerCol().pipe(finalize(async () => {
+      await this.ionRefresher.complete()
+    })).subscribe(res => {
+      if (res['events'].length == 0) {
+        this.eventsCol = res['events'];
+        this.emptyCol = true;
+      } else {
+        this.eventsCol = res['events'];
+        this.emptyCol = false;
+      }
+    },
+      async error => {
+        if (error instanceof HttpErrorResponse && (error.status == 400 || error.status == 500)) {
+          await this.presentToast(error['error']['message']);
+        } else {
+          await this.presentToast('Ocurrió un error.');
+        }
+      });
   }
   async sales(idEvent) {
     const modal = await this.modalController.create({
@@ -76,11 +125,12 @@ export class Tab1Page implements OnInit {
     })
     await modal.present();
   }
-  async optionsEvents(id: number, cols: Array<any>, nombre: string, event: Object, ev: any, fechaEvent: string) {
+  async optionsEvents(showCols:boolean,id: number, cols: Array<any>, nombre: string, event: Object, ev: any, fechaEvent: string) {
     const popover = await this.popoverController.create({
       component: OptionsEventPage,
       cssClass: 'popoverClass',
       event: ev,
+      componentProps:{showCols:showCols},
       translucent: true,
       keyboardClose: true,
       mode: 'md'
@@ -124,6 +174,20 @@ export class Tab1Page implements OnInit {
     }, 70)
   }
 
+  async checkRefresh() {
+    if (this.segment == 0) {
+      await this.getEvents();
+    } else {
+      await this.getEventPerCol();
+    }
+  }
+  goToSlide(){
+    this.ionSlides.slideTo(this.segment)
+  }
+  async slideChange(slides: IonSlides) {
+    const index = await slides.getActiveIndex();
+    this.segment = index;
+  }
   async alertConfirmNotification(nombre: string, fechaEvent: string) {
     const alert = await this.alertController.create({
       enterAnimation: this.animationAlert1.enterAnimation,
@@ -149,5 +213,31 @@ export class Tab1Page implements OnInit {
 
     await alert.present();
   }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      cssClass: 'toastClassOffline',
+      duration: 3000
+    });
+    await toast.present();
+  }
 
+  async slideStart(slides: IonSlides) {
+   
+      if (this.segment == 1) {
+        this.segment = 0;
+      } else {
+        this.segment = 1;
+      }
+    
+  }
+  async slideEnd(slides: IonSlides) {
+ 
+      if (this.segment == 0) {
+        this.segment = 1;
+      } else {
+        this.segment = 0;
+      }
+    
+  }
 }

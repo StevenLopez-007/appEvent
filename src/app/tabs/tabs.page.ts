@@ -27,7 +27,7 @@ export class TabsPage implements OnInit{
     this.authService.setStatusBarColor();
   }
   ionViewDidEnter(){
-    this.splashScreen.hide();
+   setTimeout(()=>{ this.splashScreen.hide();},600)
     // this.statusBar.backgroundColorByHexString('#180B4F');
   }
 }

@@ -10,7 +10,7 @@
     <ion-label>Entradas vendidas</ion-label>
     <!-- <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> -->
   </ion-item>
-  <ion-item (click)="closePopover(3)">
+  <ion-item *ngIf="showCols" (click)="closePopover(3)">
     <ion-label>Ver colaboradores</ion-label>
     <!-- <ion-icon name="chevron-forward-outline" slot="end"></ion-icon> -->
   </ion-item>

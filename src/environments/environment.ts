@@ -2,8 +2,19 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { ɵbypassSanitizationTrustStyle } from '@angular/core';
+
 export const environment = {
-  production: false
+  production: true,
+  apiKey: "AIzaSyA5d14FVLKzf3dhgUJoyDkDyNSw15ZkdEQ",
+  authDomain: "appevent-a1abc.firebaseapp.com",
+  databaseURL: "https://appevent-a1abc.firebaseio.com",
+  projectId: "appevent-a1abc",
+  storageBucket: "appevent-a1abc.appspot.com",
+  messagingSenderId: "972225115593",
+  appId: "1:972225115593:web:ce1075914731c32cca6418",
+  measurementId: "G-MEQXZ0G68J"
+
 };
 
 /*

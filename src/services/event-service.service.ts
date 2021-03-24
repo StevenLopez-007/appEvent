@@ -34,6 +34,9 @@ export class EventService {
   public getEventPerUser():Observable<Ievent[]> {
       return this.http.get<Ievent[]>(`${this.url}event/getEventPerUser`)
   }
+  public getEventPerCol():Observable<Ievent[]> {
+    return this.http.get<Ievent[]>(`${this.url}event/getEventPerCol`)
+  }
 
   public getCols(idEvent):Observable<any>{
     return this.http.get<any>(`${this.url}event/getCols`,{params:{'idEvent':idEvent}})

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import {trigger,style,animate,transition} from '@angular/animations'
 
@@ -25,6 +25,7 @@ import {trigger,style,animate,transition} from '@angular/animations'
 export class OptionsEventPage implements OnInit {
   showOptions1:boolean=true;
   showOptions2:boolean=false;
+  @Input() showCols:boolean;
   constructor(private popoverController: PopoverController) { }
 
    ngOnInit() {}

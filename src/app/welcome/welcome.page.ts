@@ -21,7 +21,7 @@ export class WelcomePage implements OnInit {
     // effect: slide,
     spaceBetween: 8,
     slidesPerView: 1,
-    freeMode: true,
+    freeMode: false,
     loop: false
   };
   constructor(private statusBar:StatusBar,private router:Router,private alertController: AlertController,private animationAlert1:AnimationAlert1) { }

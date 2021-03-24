@@ -6,7 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { ModalController } from '@ionic/angular';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password.page';
 import { AnimationModal1 } from '../animations/modalAnimation1';
-
+declare let NavigationBar:any;
 @Component({
   selector: 'app-login1',
   templateUrl: './login1.page.html',
@@ -34,18 +34,18 @@ export class Login1Page implements OnInit {
     document.getElementsByTagName("body")[0].style.backgroundColor="#3d3d3d";
   }
   ionViewDidEnter(){
-    this.splashScreen.hide();
     this.statusBar.overlaysWebView(true);
     this.statusBar.backgroundColorByHexString('');
+    this.ionicForm.reset();
+    NavigationBar.backgroundColorByHexString('#3d3d3d',false);
+    setTimeout(()=>{this.splashScreen.hide();},600)
   }
 
   async onKey(){
     await this.submitForm();
   }
   async login(datosUser:any){
-    if(await this.authService.login(datosUser)){
-      this.ionicForm.reset();
-    };
+   await this.authService.login(datosUser)
   }
 
   async loginWithGoogle(){
